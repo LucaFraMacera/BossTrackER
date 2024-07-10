@@ -1,0 +1,27 @@
+
+.logo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+.logo-body{
+    height: auto;
+}
+
+.logo-head{
+    position: absolute;
+    height: auto;
+    animation: bobbing 4s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes bobbing {
+    from{
+
+        transform: rotate(-10deg) translateY(-61%) translateX(15%);
+    }
+    to{
+        transform: rotate(10deg) translateY(-61%) translateX(10%);
+    }
+}
