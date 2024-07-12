@@ -23,10 +23,10 @@ export function AnimatedLogo({size}:AnimatedLogoProps){
     }, [size]);
 
     return <div className={styles["logo"]}>
-        <Image src={"/tarnishedHead.png"}
+        <Image src={"/thead2.png"}
                alt="" width={headSize} height="100"
                className={styles["logo-head"]}/>
-        <Image src={"/tarnishedBody.png"}
+        <Image src={"/tbody2.png"}
                alt={""} width={bodySize} height="200"
                className={styles["logo-body"]}/>
     </div>

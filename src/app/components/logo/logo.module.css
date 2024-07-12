@@ -8,20 +8,22 @@
 
 .logo-body{
     height: auto;
+    transform: scale(1.2,1.2);
 }
 
 .logo-head{
     position: absolute;
     height: auto;
+    transform-origin: center;
+    z-index: 99;
     animation: bobbing 4s ease-in-out infinite alternate-reverse;
 }
 
 @keyframes bobbing {
     from{
-
-        transform: rotate(-10deg) translateY(-61%) translateX(15%);
+        transform: rotate(-5deg) scale(1.2, 1.2) translateY(-70%) translateX(10%);
     }
     to{
-        transform: rotate(10deg) translateY(-61%) translateX(10%);
+        transform: rotate(5deg) scale(1.2, 1.2) translateY(-70%) translateX(10%);
     }
 }

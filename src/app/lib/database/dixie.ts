@@ -57,4 +57,8 @@ export class AppDatabase extends Dexie {
         })
         return Array.from(regionsMap.entries())
     }
+
+    public getMostTriedBoss(){
+        return this.bosses.where("tries").above(0).last()
+    }
 }
