@@ -1,7 +1,7 @@
 'use client'
 
 import {createContext} from "react";
-import {AppDatabase} from "@/app/lib/database/dixie";
+import {AppDatabase} from "@/lib/database/dixie";
 
 const DB = new AppDatabase()
 export const DatabaseContext = createContext(DB)

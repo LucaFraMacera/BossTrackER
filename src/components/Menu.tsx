@@ -1,6 +1,6 @@
 'use client'
 import Link from "next/link";
-import styles from "../home/page.module.css"
+import styles from "../app/home/page.module.css"
 import {usePathname} from "next/navigation";
 
 interface MenuLinkProps{
@@ -19,6 +19,7 @@ export function Menu(){
     return <nav className={styles["app-menu"]}>
         <MenuLink href={"/home"} text={"Home"}/>
         <MenuLink href={"/home/list"} text={"List"}/>
+        <MenuLink href={"/home/map"} text={"Interactive Map"}/>
     </nav>
 
 }

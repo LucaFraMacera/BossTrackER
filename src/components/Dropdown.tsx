@@ -1,6 +1,6 @@
 'use client'
 import {Component, useEffect, useState} from "react";
-import {Icon} from "@/app/components/Icon";
+import {Icon} from "@/components/Icon";
 
 interface DropdownItem{
     icon?:Component

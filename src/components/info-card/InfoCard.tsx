@@ -1,9 +1,9 @@
 'use client'
 
-import {Boss} from "@/app/lib/database/db.model";
+import {Boss} from "@/lib/database/db.model";
 import {Dispatch, SetStateAction} from "react";
 import styles from "./info-card.module.css"
-import {Attribute} from "@/app/components/Attribute";
+import {Attribute} from "@/components/Attribute";
 import {XMarkIcon} from "@heroicons/react/24/outline";
 
 interface  InfoCardProps{

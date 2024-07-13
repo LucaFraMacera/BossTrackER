@@ -1,4 +1,4 @@
-import {Menu} from "@/app/components/Menu";
+import {Menu} from "@/components/Menu";
 import styles from "./page.module.css";
 
 export default function AppLayout({children}: Readonly<{ children: React.ReactNode; }>) {

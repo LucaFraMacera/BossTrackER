@@ -1,7 +1,7 @@
 import Dexie, {PromiseExtended, Table} from "dexie";
-import {Boss} from "db.model";
+import {Boss} from "@/lib/database/db.model";
 import {DEFAULT_BOSS_LIST} from "./defaultData"
-import {DixieBoolean, QueryResult} from "@/app/lib/types";
+import {DixieBoolean, QueryResult} from "@/lib/types";
 
 
 export class AppDatabase extends Dexie {

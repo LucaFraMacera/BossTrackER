@@ -1,7 +1,7 @@
 import styles from "./page.module.css";
 import Link from "next/link";
 import React from "react";
-import {AnimatedLogo} from "@/app/components/logo/Logo";
+import {AnimatedLogo} from "@/components/logo/Logo";
 
 
 export default function LandingPage() {

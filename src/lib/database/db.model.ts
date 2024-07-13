@@ -1,4 +1,4 @@
-import {DixieBoolean} from "@/app/lib/types";
+import {DixieBoolean} from "@/lib/types";
 
 export interface Boss{
     id:number,

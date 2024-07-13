@@ -1,4 +1,4 @@
-import {Boss} from "@/app/lib/database/db.model";
+import {Boss} from "@/lib/database/db.model";
 
 let id = 0
 export const DEFAULT_BOSS_LIST:Boss[] = [

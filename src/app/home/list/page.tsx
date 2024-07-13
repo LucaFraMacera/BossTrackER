@@ -1,14 +1,14 @@
 'use client'
 import styles from "./page.module.css"
 import {useContext, useEffect, useState} from "react";
-import {DatabaseContext} from "@/app/components/App";
-import {Counter} from "@/app/components/counter/Counter";
-import {Boss} from "@/app/lib/database/db.model";
-import {DixieBoolean} from "@/app/lib/types";
-import {InfoCard} from "@/app/components/info-card/InfoCard";
-import {ComplexDropdown} from "@/app/components/dropdown1/CustomDropDown";
+import {DatabaseContext} from "@/components/App";
+import {Counter} from "@/components/counter/Counter";
+import {Boss} from "@/lib/database/db.model";
+import {DixieBoolean} from "@/lib/types";
+import {InfoCard} from "@/components/info-card/InfoCard";
+import {ComplexDropdown} from "@/components/dropdown1/CustomDropDown";
 import {useLiveQuery} from "dexie-react-hooks";
-import {isSmallScreen} from "@/app/lib/utils";
+import {isSmallScreen} from "@/lib/utils";
 
 
 export default function BossList(){

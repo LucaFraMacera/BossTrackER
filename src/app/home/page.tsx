@@ -1,10 +1,10 @@
 'use client'
 import {useContext, useEffect} from "react";
-import {DatabaseContext} from "@/app/components/App";
+import {DatabaseContext} from "@/components/App";
 import {useLiveQuery} from "dexie-react-hooks";
 import styles from "@/app/home/page.module.css"
-import {Dropdown} from "@/app/components/Dropdown";
-import {Boss} from "@/app/lib/database/db.model";
+import {Dropdown} from "@/components/Dropdown";
+import {Boss} from "@/lib/database/db.model";
 
 interface RegionDataItem{
     region:string

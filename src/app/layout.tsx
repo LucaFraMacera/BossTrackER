@@ -1,7 +1,7 @@
 import type {Metadata} from "next";
 import {Buenard} from "next/font/google";
 import "./globals.css";
-import {App} from "@/app/components/App";
+import {App} from "@/components/App";
 
 const inter = Buenard({ subsets: ["latin"], weight:["400", "700"] });
 
