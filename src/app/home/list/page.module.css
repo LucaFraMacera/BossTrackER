@@ -1,0 +1,150 @@
+
+.bossTable{
+    border-collapse: collapse;
+    background-color: var(--background-secondary);
+}
+
+.bossList{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.bossTable > thead > tr > th {
+    resize: horizontal;
+    overflow: hidden;
+    padding:0.5rem;
+    text-align: left;
+    font-size: 1.5rem;
+    border: var(--text-primary) 0.1rem solid;
+}
+.bossTable > thead > tr{
+    position: sticky;
+    top: 0;
+    background-color: black;
+    transition: all 0.2s ease-in-out;
+    border: var(--text-primary) 0.1rem solid;
+}
+
+.bossTable > tbody > tr >  td{
+    padding: 0.5rem;
+    border: var(--text-primary) 0.1rem solid;
+    cursor: pointer;
+}
+
+.bossTable > tbody > .doneRow{
+    background-color: rgba(147, 137, 0, 0.51);
+}
+
+.bossTable > tbody > .doneRow:hover{
+    background: linear-gradient(to top, #282100, #605800, #796f00, #918500);
+}
+
+.bossTable > tbody > tr:hover{
+    background: linear-gradient(to bottom, var(--background-secondary), var(--background-secondary), #282828, #5b5b5b);
+}
+
+.bossTable > tbody > tr > td:last-child{
+    text-align: center;
+}
+
+.checkBox{
+    accent-color: var(--text-secondary);
+    height: 1.5rem;
+    width: 1rem;
+    border-radius: 2rem;
+}
+
+.tableAndInfos{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap:2rem
+}
+
+.filters{
+    display: flex;
+    flex-direction: row;
+    gap:1rem;
+    justify-content: space-between;
+    font-size: 1.5rem;
+}
+
+.filterInputBox{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.filterInput{
+    padding: 0.5rem;
+    background-color: var(--background-secondary);
+    color: white;
+    border-top: unset;
+    border-right: unset;
+    border-bottom: 0.1rem solid var(--text-secondary);
+    border-left: unset;
+}
+
+.filterReset{
+    align-self: flex-end;
+    padding: 0.5rem;
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 0.1rem solid var(--text-secondary);
+    border-radius: 0.5rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.filterReset:hover{
+    cursor: pointer;
+    background-color: rgba(255,210,100, 30%);
+}
+
+.filterInput::placeholder{
+    color: white;
+}
+
+.filterInput:focus{
+    border-radius: 2px;
+    outline: 0.1rem solid var(--background-primary);
+}
+
+@media only screen and (max-width:600px) {
+
+    .bossList{
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        overflow-x: scroll;
+    }
+
+    .filters{
+        flex-direction: column;
+    }
+
+    .filterMenu{
+        padding: 0 0.5rem;
+        display: flex;
+        height: 100%;
+        background: linear-gradient(
+                to bottom,
+                transparent,
+                rgb(var(--background-end-rgb))
+        )
+        rgb(var(--background-start-rgb));
+        position: sticky;
+        left: 0;
+        top:0;
+        z-index: 10;
+    }
+
+    .filterInputBox{
+        flex-direction: column;
+    }
+
+    .checkBox{
+        width: 2rem;
+    }
+}

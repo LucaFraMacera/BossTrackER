@@ -3,6 +3,7 @@ import {Boss} from "db.model";
 import {DEFAULT_BOSS_LIST} from "./defaultData"
 import {DixieBoolean, QueryResult} from "@/app/lib/types";
 
+
 export class AppDatabase extends Dexie {
     bosses!: Table<Boss>;
     constructor() {
@@ -17,6 +18,10 @@ export class AppDatabase extends Dexie {
                 }
             })
         }
+    }
+
+    public getAllRegions(){
+        return this.bosses.orderBy("region").sortBy("region")
     }
 
     public getDefeatedBossesCount(){
@@ -61,4 +66,24 @@ export class AppDatabase extends Dexie {
     public getMostTriedBoss(){
         return this.bosses.where("tries").above(0).last()
     }
+
+    public getMostDeaths(region?:string){
+        if(region){
+            return this.bosses.filter(boss => {
+                return boss.tries >= 0 && boss.region === region
+            }).last()
+        }
+        return this.bosses.filter(boss => {
+            return boss.tries > 0
+        }).last()
+    }
+
+    public setTries(id:number, tries:number){
+        return this.bosses.update(id, {tries:tries})
+    }
+
+    public setDone(id:number, done:DixieBoolean){
+        return this.bosses.update(id, {done:done})
+    }
+
 }

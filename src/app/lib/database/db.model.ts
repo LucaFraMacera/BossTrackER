@@ -1,3 +1,5 @@
+import {DixieBoolean} from "@/app/lib/types";
+
 export interface Boss{
     id:number,
     name:string,
@@ -5,6 +7,6 @@ export interface Boss{
     location:string,
     drops:string[],
     tries:number,
-    done:0|1,
+    done:DixieBoolean,
     notes?:string
 }

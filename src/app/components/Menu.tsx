@@ -1,12 +1,24 @@
+'use client'
 import Link from "next/link";
 import styles from "../home/page.module.css"
+import {usePathname} from "next/navigation";
+
+interface MenuLinkProps{
+    href:string,
+    text:string
+}
+
 export function Menu(){
 
+    const currentLocation = usePathname()
+
+    function MenuLink({href,text}:MenuLinkProps){
+        return <Link href={href} className={currentLocation == href? styles["active-link"]:""}>{text}</Link>
+    }
+
     return <nav className={styles["app-menu"]}>
-        <Link href={"/home"}>Home</Link>
-        <Link href={"/home/list"} >List</Link>
-        <Link href={"/home"} >Option</Link>
-        <Link href={"/home"} >Option</Link>
+        <MenuLink href={"/home"} text={"Home"}/>
+        <MenuLink href={"/home/list"} text={"List"}/>
     </nav>
 
 }
