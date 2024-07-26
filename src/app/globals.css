@@ -89,6 +89,10 @@
   margin: 0;
 }
 
+*::selection{
+  background-color: rgba(187, 187, 187, 10%);
+}
+
 html,
 body {
   height: 100%;

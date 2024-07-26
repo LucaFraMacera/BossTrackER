@@ -1,7 +1,8 @@
 'use client'
-import {useState} from "react";
+import {useRef, useState} from "react";
 import styles from "@/components/accordion/accordion.module.css"
 import {ChevronDownIcon} from "@heroicons/react/16/solid";
+import {useClickOutside} from "@/lib/useClickOutside";
 
 interface AccordionProps{
     title:string
@@ -9,8 +10,13 @@ interface AccordionProps{
 export function Accordion({title, children}:AccordionProps){
 
     const [open, setOpen] = useState(false)
+    const accordionRef = useRef(null)
 
-    return <div className={styles.accordion}>
+    useClickOutside(()=>{
+        setOpen(false)
+    }, accordionRef)
+
+    return <div className={styles.accordion} ref={accordionRef}>
         <label className={styles["accordion-button"]} onClick={()=>setOpen(!open)}>{title}
             <ChevronDownIcon className={styles["accordion-icon"]}
                             style={{transform:open?"rotate(180deg)":""}}/>
