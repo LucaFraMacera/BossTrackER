@@ -1,6 +1,7 @@
 .infoCardBox{
     position: sticky;
     top: 2rem;
+    margin-left: 2rem;
 }
 
 .infoCard{
@@ -12,7 +13,8 @@
     background-color: var(--background-secondary);
     border: 0.1rem solid var(--text-secondary);
     border-radius: 1rem;
-    padding:1rem 2rem;
+    padding:1rem;
+    color: var(--text-secondary);
 }
 
 .infoCardInfos{
@@ -52,9 +54,10 @@
 
 
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 650px) {
 
     .infoCardBox{
+        margin-left: 0;
         z-index: 1000;
         display: flex;
         position: absolute;

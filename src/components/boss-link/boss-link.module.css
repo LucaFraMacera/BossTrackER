@@ -1,0 +1,8 @@
+.bossLink{
+    transition: all 0.2s ease-in-out;
+}
+
+.bossLink:hover{
+    color: var(--text-primary);
+    font-weight: bold;
+}

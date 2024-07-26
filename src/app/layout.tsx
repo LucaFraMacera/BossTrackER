@@ -7,7 +7,7 @@ const inter = Buenard({ subsets: ["latin"], weight:["400", "700"] });
 
 
 export const metadata: Metadata = {
-  icons:"/er-icon.svg",
+  icons:"/logo.png",
   title: "BossTrackER",
   description: "An Elden Ring Boss tracker, where you can see the location and drops of all the bosses/invasions present in the game.",
   authors:[{

@@ -1,0 +1,158 @@
+.mapBox{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.marker{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    transition: all 0.2s ease-in-out;
+    width: 20px;
+    height: auto;
+}
+
+.marker:hover{
+    cursor: pointer;
+    filter: brightness(150%);
+}
+
+.mapImage{
+    width: 100%;
+    height: 100%;
+}
+
+.mapArea{
+    position: relative;
+    width:800px;
+    height: 800px
+}
+
+.filtersIcon{
+    width: 2.5rem;
+    border-radius: 0.5rem;
+    height: auto;
+    background: linear-gradient(
+            to bottom,
+            transparent,
+            rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+    border: 0.1rem solid var(--text-secondary);
+    color: var(--text-primary);
+}
+
+.mapFiltersBox{
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    gap:1rem;
+    right: 0;
+    top: 1rem;
+    z-index: 9999;
+    align-items: flex-start;
+    justify-content: right;
+    transition: all 0.2s ease-in-out;
+
+}
+
+.mapFilters{
+    border-radius: 0.5rem;
+    background: linear-gradient(
+            to bottom,
+            transparent,
+            rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-width: 50%;
+    border-color: #605800;
+}
+
+.mapFilter{
+    display: flex;
+    align-items: center;
+    padding:1rem;
+    gap:1rem;
+}
+
+.divide-y > * + *{
+    border-style: solid;
+    border-color: var(--background-primary);
+    border-width: 0;
+    border-top-width: 2px;
+}
+
+.close{
+    transform: translateX(50%);
+}
+
+.filterBox{
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+}
+
+.markerInfos{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    color: var(--text-secondary);
+}
+
+.markerBossInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: flex-start;
+}
+
+.markerCounterBox{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.markerBossAttribute{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    color: white;
+}
+
+.markerBossAttribute > b{
+    color: var(--text-secondary);
+}
+
+.markerBossAttribute:has(input[type="checkbox"]){
+    align-items: center;
+}
+
+.markerTitle{
+    border-bottom: 0.1rem solid var(--text-primary);
+}
+
+
+@media only screen and (max-width: 600px){
+
+    .mapArea{
+        overflow: scroll;
+    }
+
+    .mapFiltersBox{
+        font-size: 1.5rem;
+    }
+
+}

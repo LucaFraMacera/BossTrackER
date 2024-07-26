@@ -5,6 +5,10 @@ import {Dispatch, SetStateAction} from "react";
 import styles from "./info-card.module.css"
 import {Attribute} from "@/components/Attribute";
 import {XMarkIcon} from "@heroicons/react/24/outline";
+import style from "@/components/interactive-map/map.module.css";
+import {DixieBoolean} from "@/lib/types";
+import {arrayToString} from "@/lib/utils";
+import {BossLink} from "@/components/boss-link/BossLink";
 
 interface  InfoCardProps{
     boss?:Boss
@@ -16,23 +20,20 @@ export function InfoCard({boss, open, setOpen}:InfoCardProps){
         <div className={styles.infoCard}>
             <div className={styles.infoCardClose}>
                 <XMarkIcon className={"icon close-icon"}
-                            onClick={()=>setOpen(false)}/>
+                           onClick={() => setOpen(false)}/>
             </div>
-            <div className={styles.infoCardInfos}>
-                <Attribute title={"Boss Name"} text={boss?.name || ""} className={styles.infoCardAttribute}/>
-                <Attribute title={"Region"} text={boss?.region || ""} className={styles.infoCardAttribute}/>
-                <Attribute title={"Location"} text={boss?.location || ""} className={styles.infoCardAttribute}/>
-                <Attribute title={"Additional Info"} text={boss?.notes || "No additional info."}
-                           className={styles.infoCardAttribute}/>
-                <div className={styles.dropsInfo}>
-                    <b>Drops:</b>
-                    <ul>
-                        {boss?.drops.length > 0 && boss?.drops.map((drop, index) => {
-                                return <li key={`drop_${index}`}>{drop}</li>
-                            })
-                            || "No additional drops."}
-                    </ul>
-                </div>
+
+            <div className={`${style.markerInfos}`}>
+                <h1 className={style.markerTitle}>{boss?.name}</h1>
+               <div className={style.markerBossInfo}>
+                   <Attribute title={"Region"} text={`${boss?.region}`} className={style.markerBossAttribute}/>
+                   <Attribute title={"Location"} text={`${boss?.location}`} className={style.markerBossAttribute}/>
+                   <Attribute title={"Drops"} text={boss?.drops?.length > 0 ? arrayToString(boss?.drops!) : "No drops."}
+                              className={style.markerBossAttribute}/>
+                   <Attribute title={"Notes"} text={boss?.notes || "No additional information."}
+                              className={style.markerBossAttribute}/>
+               </div>
+                <BossLink bossId={boss?.id!} text={"Check map"}/>
             </div>
         </div>
     </div>

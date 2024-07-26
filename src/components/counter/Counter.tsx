@@ -1,4 +1,5 @@
 import styles from "./counter.module.css"
+import {MinusIcon, PlusIcon} from "@heroicons/react/16/solid";
 interface CounterProps{
     value:number
     min?:number
@@ -10,8 +11,12 @@ interface CounterProps{
 }
 export function Counter({value, onIncrement, onDecrement, disabled=false, min=-Infinity, max=Infinity}:CounterProps){
     return <div className={styles.counterBox}>
-        {value > min && !disabled && <button className={styles.counterBoxButton} onClick={onDecrement}>-</button>}
+        {!disabled && <button className={styles.counterBoxButton} disabled={value <= min} onClick={onDecrement}>
+            <MinusIcon className={styles.counterBoxButtonIcon}/>
+        </button>}
         <label>{value}</label>
-        {value < max && !disabled && <button className={styles.counterBoxButton} onClick={onIncrement}>+</button>}
+        {!disabled && <button className={styles.counterBoxButton} disabled={value >= max} onClick={onIncrement}>
+            <PlusIcon className={styles.counterBoxButtonIcon}/>
+        </button>}
     </div>
 }

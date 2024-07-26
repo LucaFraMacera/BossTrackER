@@ -1,0 +1,17 @@
+.areaElement{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.mapBox{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.map{
+    position: relative;
+}

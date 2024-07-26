@@ -1,14 +1,25 @@
 
+.bossTableBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap:0.5rem;
+}
+
 .bossTable{
     border-collapse: collapse;
-    background-color: var(--background-secondary);
+    background-color: transparent;
+    outline: 0.1rem solid var(--background-primary);
 }
 
 .bossList{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-x: auto;
+    gap: 0.5rem;
 }
 
 .bossTable > thead > tr > th {
@@ -17,32 +28,37 @@
     padding:0.5rem;
     text-align: left;
     font-size: 1.5rem;
-    border: var(--text-primary) 0.1rem solid;
+    outline: 0.1rem solid var(--background-primary);
 }
 .bossTable > thead > tr{
     position: sticky;
-    top: 0;
-    background-color: black;
+    top: 3rem;
+    background-color: var(--background-secondary);
+    color: rgb(var(--text-primary-rgb));
+    font-weight: bold;
     transition: all 0.2s ease-in-out;
-    border: var(--text-primary) 0.1rem solid;
+}
+
+.bossTable > tbody > tr{
+    transition: all 1s ease-in-out;
 }
 
 .bossTable > tbody > tr >  td{
     padding: 0.5rem;
-    border: var(--text-primary) 0.1rem solid;
     cursor: pointer;
 }
 
 .bossTable > tbody > .doneRow{
-    background-color: rgba(147, 137, 0, 0.51);
+    background-color: rgba(var(--text-primary-rgb), 20%);
 }
 
 .bossTable > tbody > .doneRow:hover{
-    background: linear-gradient(to top, #282100, #605800, #796f00, #918500);
+    background: linear-gradient(to top, #282100, rgba(147, 120, 55, 0.8), rgba(217, 179, 84, 0.8), #FFD364CC);
 }
 
-.bossTable > tbody > tr:hover{
-    background: linear-gradient(to bottom, var(--background-secondary), var(--background-secondary), #282828, #5b5b5b);
+.bossTable > tbody > tr:hover, .bossTable > tbody >tr:active{
+    background-position-x: 0;
+    background: linear-gradient(to bottom, var(--background-primary), var(--background-primary), #3f3f3f, #5b5b5b);
 }
 
 .bossTable > tbody > tr > td:last-child{
@@ -60,91 +76,84 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap:2rem
 }
 
 .filters{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap:1rem;
-    justify-content: space-between;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     font-size: 1.5rem;
 }
 
 .filterInputBox{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 1rem;
 }
 
-.filterInput{
-    padding: 0.5rem;
-    background-color: var(--background-secondary);
-    color: white;
-    border-top: unset;
-    border-right: unset;
-    border-bottom: 0.1rem solid var(--text-secondary);
-    border-left: unset;
-}
-
-.filterReset{
-    align-self: flex-end;
-    padding: 0.5rem;
-    background-color: transparent;
+.filterInputBox > label{
     color: var(--text-secondary);
-    border: 0.1rem solid var(--text-secondary);
-    border-radius: 0.5rem;
-    transition: all 0.2s ease-in-out;
 }
 
-.filterReset:hover{
-    cursor: pointer;
-    background-color: rgba(255,210,100, 30%);
+.filterMenu{
+    padding: 0 0.5rem;
+    display: flex;
+    height: 100%;
+    background-color: transparent;
+    position: sticky;
+    left: 0;
+    top:0;
+    z-index: 10;
 }
 
-.filterInput::placeholder{
-    color: white;
+
+.searchBox{
+    padding:0.5rem;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    gap:1rem;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    background-color: var(--background-secondary);
+    outline: 0.2rem solid var(--background-secondary)
 }
 
-.filterInput:focus{
-    border-radius: 2px;
-    outline: 0.1rem solid var(--background-primary);
+.searchBox > input[type="text"]{
+    width: 50%;
 }
 
-@media only screen and (max-width:600px) {
+@media only screen and (max-width: 650px){
 
     .bossList{
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: flex-start;
-        overflow-x: scroll;
+        justify-content: unset;
     }
 
-    .filters{
-        flex-direction: column;
+    .searchBox{
+        justify-content: center;
+        left: 25vw;
+    }
+
+    .searchBox > input[type="text"]{
+        width: 100%
+    }
+
+    .bossTableBox{
+        align-items: flex-start;
     }
 
     .filterMenu{
-        padding: 0 0.5rem;
-        display: flex;
-        height: 100%;
         background: linear-gradient(
                 to bottom,
                 transparent,
                 rgb(var(--background-end-rgb))
         )
         rgb(var(--background-start-rgb));
-        position: sticky;
-        left: 0;
-        top:0;
-        z-index: 10;
-    }
-
-    .filterInputBox{
-        flex-direction: column;
-    }
-
-    .checkBox{
-        width: 2rem;
     }
 }

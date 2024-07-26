@@ -17,16 +17,31 @@
 }
 
 .counterBoxButton{
-    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    border:unset;
+    padding: 0 0.5rem;
     font-size: 1rem;
-    background-color: transparent;
-    border: var(--text-secondary) 0.1rem solid;
-    color: var(--text-secondary)
+    border-radius: 0.5rem;
+    background-color: var(--text-primary);
+    color: black;
 }
 
 .counterBoxButton:hover{
     cursor: pointer;
-    background-color: rgba(255, 211, 100, 30%);
-    border: var(--text-primary) 0.1rem solid;
-    color: var(--text-primary)
+    background-color: var(--text-secondary);
+}
+
+.counterBoxButton:disabled{
+    background-color: rgba(var(--text-primary-rgb), 30%);
+}
+
+.counterBoxButton:disabled:hover{
+    cursor: default;
+}
+
+.counterBoxButtonIcon{
+    width: 1rem;
+    height: auto;
+    color: black;
 }

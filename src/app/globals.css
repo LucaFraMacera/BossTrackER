@@ -2,13 +2,19 @@
   --max-width: 1100px;
   --border-radius: 12px;
   --text-primary: rgba(255, 211, 100, 0.8);
+  --text-primary-rgb:255, 211, 100;
   --text-secondary: rgba(255, 211, 100, 0.95);
   --background-secondary: #181818;
   --background-primary: #333333;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
-
+  --standard-bg:linear-gradient(
+          to bottom,
+          transparent,
+          rgb(var(--background-end-rgb))
+  )
+  rgb(var(--background-start-rgb));
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -105,15 +111,31 @@ a {
   text-decoration: none;
 }
 
+input[type="checkbox"]{
+  accent-color: var(--text-secondary);
+  height: 1.5rem;
+  width: 1rem;
+  border-radius: 2rem;
+}
+
 .icon{
   width: 2rem;
   height: auto;
   transition: all 0.2s ease-in-out;
 }
 
+.icon:hover{
+  color: var(--text-secondary);
+}
+
+.bordered-icon{
+  border-radius: 0.5rem;
+  border:0.1rem solid var(--text-primary)
+}
+
 .close-icon:hover{
   cursor: pointer;
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -125,13 +147,15 @@ a {
 
 .dropdown{
   display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
   flex-direction: column;
 }
 
 .dropdown > label{
   display: flex;
-  width: fit-content;
   align-items: flex-end;
+  justify-content: space-between;
   font-weight: bold;
   color: var(--text-primary);
   cursor: pointer;
@@ -141,5 +165,128 @@ a {
 .dropdown-items{
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  overflow: hidden;
   transition: all 0.2s ease-in-out;
+}
+
+.leaflet-container{
+  width: 80%;
+  height: 100%;
+  background-color: transparent !important;
+  border: 0.6rem solid transparent;
+  border-image: url("/icons/fram2.png") 27 / 1.2rem  / 3px 1px 1px 1px repeat;
+}
+
+.leaflet-control-zoom{
+  border-color: var(--text-primary) !important;
+}
+
+.leaflet-control-zoom > a{
+  transition: all 0.2s ease-in-out;
+  background: linear-gradient(
+          to bottom,
+          transparent,
+          rgb(var(--background-end-rgb))
+  )
+  rgb(var(--background-start-rgb)) !important;
+  width: 50px !important;
+  height: auto !important;
+  color: var(--text-secondary) !important;
+  border-color: var(--text-primary) !important;
+}
+
+.leaflet-control-zoom > a.leaflet-disabled{
+  background-color: gray !important;
+  color: white !important;
+}
+
+.leaflet-control-zoom > a:hover{
+  filter: contrast(110%) brightness(120%);
+}
+
+.leaflet-control-attribution{
+  display: none;
+}
+
+.leaflet-popup-content-wrapper{
+  background: linear-gradient(
+          to bottom,
+          transparent,
+          rgb(var(--background-end-rgb))
+  )
+  rgb(var(--background-start-rgb)) !important;
+  font-size: 1rem;
+  font-family: '__Buenard_d24d99', '__Buenard_Fallback_d24d99' !important;
+}
+
+a.leaflet-popup-close-button{
+  font-size: 2rem!important;
+  width: 2rem !important;
+  height: auto !important;
+  color: var(--text-primary) !important;
+  transition: all 0.2s ease-in-out;
+}
+
+a.leaflet-popup-close-button:hover{
+  color: var(--text-secondary) !important;
+}
+
+.leaflet-popup-tip{
+  background-color: var(--text-secondary) !important;
+}
+
+.leaflet-marker-icon{
+  transition: all 0.2s ease-in-out;
+}
+
+.leaflet-marker-icon:hover{
+  filter: drop-shadow(0 0 0.5rem black) brightness(120%);
+}
+
+.filterInput{
+  padding: 0.5rem;
+  background-color: var(--background-secondary);
+  color: white;
+  border-top: unset;
+  border-right: unset;
+  border-bottom: 0.1rem solid var(--text-secondary);
+  border-left: unset;
+}
+
+.filterReset{
+  align-self: flex-end;
+  padding: 0.5rem;
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 0.1rem solid var(--text-secondary);
+  border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.filterReset:hover{
+  cursor: pointer;
+  background-color: rgba(255,210,100, 30%);
+}
+
+.filterInput::placeholder{
+  color: white;
+}
+
+.filterInput:focus{
+  border-radius: 2px;
+  outline: 0.1rem solid var(--background-primary);
+}
+
+
+@media only screen and (max-width: 650px){
+  .leaflet-container{
+    width: 90%;
+  }
+
+
+  .checkBox{
+    width: 2rem;
+  }
+
 }
