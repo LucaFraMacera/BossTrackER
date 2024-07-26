@@ -1,6 +1,6 @@
 'use client'
 import {TileLayer, useMap, ZoomControl} from "react-leaflet";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import {Boss, BossFilters} from "@/lib/database/db.model";
 import styles from "./map.module.css"
 import {AdjustmentsHorizontalIcon} from "@heroicons/react/16/solid";
@@ -8,11 +8,9 @@ import {DatabaseContext} from "@/components/App";
 import {DixieBoolean, MapLayerEnum, MapLayerType} from "@/lib/types";
 import {XMarkIcon} from "@heroicons/react/24/outline";
 import {MapMarker} from "@/components/interactive-map/MapMarker";
-import {useParams, useSearchParams} from "next/navigation";
-
-interface MapProps{
-    bosses:Boss[]
-}
+import {useSearchParams} from "next/navigation";
+import {useClickOutside} from "@/lib/useClickOutside";
+import {useLiveQuery} from "dexie-react-hooks";
 
 export function ERMap(){
     const params = useSearchParams()
@@ -23,6 +21,7 @@ export function ERMap(){
     const [bossList, setBossList] = useState<Boss[]>([])
     const [filters, setFilters] = useState<BossFilters>({map:displayedMap})
     const map = useMap()
+    const filterBox = useRef<HTMLDivElement | null>(null)
 
     function markerCountFunction(bossId:number, tries:number) {
         db.setTries(bossId, tries)
@@ -40,13 +39,27 @@ export function ERMap(){
         })
         db.getAllRegions(displayedMap).then(regions=>setRegions(regions))
     }
-    useEffect(() => {
-
-    }, [params, db]);
 
     useEffect(() => {
         loadMarkers()
     }, [displayedMap, filters, db]);
+
+    useEffect(() => {
+        if(params && params.has("boss")){
+            const bossId = params.get("boss")!
+            try{
+                db.getBoss(parseInt(bossId)).then((boss)=>{
+                    if(boss){
+                        map.flyTo(boss.coordinates, 6)
+                    }
+                })
+            }catch (error){}
+        }
+    }, [params])
+
+    useClickOutside(()=>{
+        setFiltersOpen(false)
+    }, filterBox)
 
     useEffect(() => {
         if(params.has("boss")){
@@ -68,9 +81,6 @@ export function ERMap(){
         <ZoomControl position={"topleft"}/>
         {bossList &&
             bossList.map(boss=>{
-                    if(boss.id == params.get("boss")){
-                        map.flyTo(boss.coordinates, 6)
-                    }
                     return <MapMarker key={`boss_${boss.id}`}
                                boss={boss}
                                counterFunction={markerCountFunction}
@@ -78,7 +88,7 @@ export function ERMap(){
                     />
                 }
             )}
-        <div className={`${styles.mapFiltersBox} ${styles['divide-y']} ${!filtersOpen ? styles.close : ""}`}>
+        <div className={`${styles.mapFiltersBox} ${styles['divide-y']} ${!filtersOpen ? styles.close : ""}`} ref={filterBox}>
             {filtersOpen ?
                 <XMarkIcon className={`icon ${styles.filtersIcon}`} onClick={()=>setFiltersOpen(!filtersOpen)}/>
                 :
@@ -86,21 +96,22 @@ export function ERMap(){
             }
             <div className={`${styles.mapFilters}`}>
                 <div className={styles.filterBox}>
-                    <b>Map:</b>
+                    <b>Map :</b>
                     <select className={"filterInput"}
-                            defaultValue={displayedMap}
                             onChange={(e) => {
                                 const selectedMap = e.target.value as MapLayerType
                                 setFilters({...filters, map: selectedMap, region: undefined})
                                 setDisplayedMap(selectedMap)
-                            }}>
+                            }}
+                            value={displayedMap}
+                    >
                         {Array.from(Object.entries(MapLayerEnum)).map(([key, value]) => {
-                            return <option key={key} value={key} selected={key===displayedMap}>{value}</option>
+                            return <option key={key} value={key}>{value}</option>
                         })}
                     </select>
                 </div>
                 <div className={styles.filterBox}>
-                    <b>Region:</b>
+                    <b>Region :</b>
                     <select className={"filterInput"}
                             defaultValue={''}
                             onChange={(e) => setFilters({...filters, region: e.target.value})}>
@@ -111,7 +122,7 @@ export function ERMap(){
                     </select>
                 </div>
                 <div className={styles.filterBox}>
-                    <b>Nightly:</b>
+                    <b>Nightly :</b>
                     <select className={"filterInput"}
                             onChange={(e) => {
                                 if (e.target.value >= 0) {
@@ -126,7 +137,7 @@ export function ERMap(){
                         <option value={DixieBoolean.true}>Yes</option>
                     </select>
                 </div>
-                <label className={styles.mapFilter}>Killed
+                <label className={styles.mapFilter}>Killed :
                     <input type={"checkbox"} onChange={(e) => {
                         if (e.target.checked) {
                             setFilters({...filters, killed: DixieBoolean.true})

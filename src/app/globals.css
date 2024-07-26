@@ -237,7 +237,7 @@ a.leaflet-popup-close-button:hover{
 }
 
 .leaflet-marker-icon{
-  transition: all 0.2s ease-in-out;
+  transition: filter 0.2s ease-in-out;
 }
 
 .leaflet-marker-icon:hover{
