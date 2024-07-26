@@ -17,6 +17,7 @@ import {useLiveQuery} from "dexie-react-hooks";
 import styles from "@/app/home/stats/page.module.css"
 import {Accordion} from "@/components/accordion/Accordion";
 import {useScreenSize} from "@/lib/useScreenSize";
+import {CHART_OPTIONS, DEFAULT_DATA, getDataSetFromArray} from "@/lib/charts/chartUtils";
 
 ChartJS.register(
     CategoryScale,
@@ -29,31 +30,6 @@ ChartJS.register(
     ArcElement
 );
 
-const DEFAULT_DATA:ChartData = {
-    labels: [],
-    datasets:[]
-}
-
-const CHART_OPTIONS:ChartOptions<any> = {
-    plugins: {
-        title: {
-            display: true,
-            text: '',
-        },
-    },
-    responsive: true,
-};
-
-const PRIMARY_COLOR = "rgba(255,211,100,0.81)"
-const SECONDARY_COLOR = "rgba(255,211,100,0.54)"
-function getChartDataColors(data:any[], inverse?:boolean){
-    const isInverse = inverse != undefined ? inverse : false
-    if(!isInverse){
-        return data.map((region, index)=>index % 2 ? PRIMARY_COLOR : SECONDARY_COLOR)
-    }
-    return data.map((region, index)=>index % 2==0 ? PRIMARY_COLOR : SECONDARY_COLOR)
-}
-
 export default function Stats(){
 
     const db = useContext(DatabaseContext)
@@ -63,18 +39,11 @@ export default function Stats(){
     const {isSmall} = useScreenSize()
 
     useEffect(() => {
-        setChartData({
-            labels: regions || [],
-            datasets:[
-                {
-                    label: 'Dataset 1',
-                    data: regions?.map(() => Math.random()*100),
-                    backgroundColor: getChartDataColors(regions || []),
-                    borderWidth:2,
-                    borderColor:getChartDataColors(regions || [], true)
-                }
-            ]
-        })
+        setChartData(getDataSetFromArray({
+            title:"Region Deaths",
+            data: regions?.map(()=>Math.random()*101) || [],
+            labels: regions || []
+        }))
     }, [regions, isSmall]);
 
 

@@ -15,3 +15,4 @@ export type BossType = keyof typeof BossTypeEnum
 
 export type Coordinates = [number, number]
 
+
