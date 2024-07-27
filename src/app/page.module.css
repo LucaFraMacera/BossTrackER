@@ -7,11 +7,13 @@
     height:100%;
 }
 .description{
-    color: var(--text-primary);
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 1.5rem;
+    text-align: center;
+    color: var(--text-primary);
+    -webkit-text-stroke: 0.2rem rgba(var(--text-primary-rgb), 20%);
 }
 
 .home-link{

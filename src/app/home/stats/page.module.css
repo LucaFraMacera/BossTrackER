@@ -28,10 +28,11 @@
     flex-direction: column;
     align-items: center;
     background-color: var(--background-secondary);
-    gap:1rem;
+    gap: 1rem;
 }
 
-.statBox > h1{
+.statBox > h1, .statsPageBodyContent > h1{
+    font-size: 3.5rem;
     text-align: center;
     color: var(--text-primary);
     -webkit-text-stroke: 0.2rem rgba(var(--text-primary-rgb), 20%);

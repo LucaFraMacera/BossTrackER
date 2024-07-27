@@ -159,7 +159,6 @@ input[type="checkbox"]{
 .dropdown{
   display: flex;
   gap: 0.5rem;
-  flex-wrap: wrap;
   flex-direction: column;
 }
 
@@ -293,6 +292,7 @@ a.leaflet-popup-close-button:hover{
 @media only screen and (max-width: 650px){
   .leaflet-container{
     width: 90%;
+    height: 90%;
   }
 
 

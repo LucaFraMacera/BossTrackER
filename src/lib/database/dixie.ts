@@ -138,7 +138,7 @@ export class AppDatabase extends Dexie {
         }).sortBy("id")
     }
 
-    public async getStatsPerRegion(){
+    public async getStatsPerMap(){
         const bossMaps = new Map<string, Map<string, [number, number]>>()
         await this.bosses.each((boss)=>{
             if(bossMaps.has(boss.mapLayer)){

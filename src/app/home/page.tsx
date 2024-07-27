@@ -37,12 +37,12 @@ export default function Home(){
                 <Attribute className={styles["stat-attribute"]} title={"Total deaths"} text={`${totalDeaths}`}/>
                 <Attribute className={styles["stat-attribute"]} title={"Most tried boss"} text={mostDifficultBoss ? `${mostDifficultBoss.name}, ${mostDifficultBoss.tries}` : "You haven't tried any boss"}/>
             </div>
-            <Link className={styles.bossMapLink} href={"/home/stats"}>See all</Link>
+            <Link className={styles.bossMapLink} href={"/home/stats"}>Check all</Link>
         </div>
         <div className={styles["stat-box"]}>
             <h1>Where did you die?</h1>
             <div className={`${styles["stat-box-info"]} ${styles["stat-box-dropdown"]}`}>
-                {(regionDeaths && regionDeaths.length > 0 &&
+                {regionDeaths && regionDeaths.length > 0 ?
                         regionDeaths.map(([region, regionData]) => {
                             if(regionData.deaths > 0){
                                 return <Accordion key={region} title={region}>
@@ -50,8 +50,8 @@ export default function Home(){
                                     <Attribute className={styles["stat-attribute"]} title={"Most tried boss"} text={`${regionData.mostTried?.name}, ${regionData.mostTried?.tries}`}/>
                                 </Accordion>
                             }
-                        }))
-                    || <div>You haven&apos;t tried any boss yet.</div>}
+                        }):
+                    <div>You haven&apos;t tried any boss yet.</div>}
             </div>
         </div>
     </div>

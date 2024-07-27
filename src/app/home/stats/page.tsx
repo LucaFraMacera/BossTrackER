@@ -28,7 +28,7 @@ export default function Stats(){
     const totalDefeatedBosses = useLiveQuery(()=> db.getDefeatedBossesCount())
     const mostDifficultBoss = useLiveQuery(()=>db.getMostTriedBoss())
     const totalDeaths = useLiveQuery(()=>db.getTotalDeaths())
-    const defeatedBossPerRegion = useLiveQuery(()=>db.getStatsPerRegion())
+    const defeatedBossPerRegion = useLiveQuery(()=>db.getStatsPerMap())
     const {isSmall} = useScreenSize()
 
     useEffect(() => {
