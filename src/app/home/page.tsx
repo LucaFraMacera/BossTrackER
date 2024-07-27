@@ -16,8 +16,8 @@ export default function Home(){
     const regionDeaths = useLiveQuery(async ()=>db.getDeathsPerRegion())
     const totalBosses = useLiveQuery(()=>db.getTotalBossesCount())
     const totalDefeatedBosses = useLiveQuery(()=> db.getDefeatedBossesCount())
-    const nextBossToKill = useLiveQuery(()=> db.getNextBossToKill())
     const mostDifficultBoss = useLiveQuery(()=>db.getMostTriedBoss())
+    const nextBossToKill = useLiveQuery(()=> db.getNextBossToKill())
 
 
     return <div className={styles["stat-page"]}>
@@ -37,6 +37,7 @@ export default function Home(){
                 <Attribute className={styles["stat-attribute"]} title={"Total deaths"} text={`${totalDeaths}`}/>
                 <Attribute className={styles["stat-attribute"]} title={"Most tried boss"} text={mostDifficultBoss ? `${mostDifficultBoss.name}, ${mostDifficultBoss.tries}` : "You haven't tried any boss"}/>
             </div>
+            <Link className={styles.bossMapLink} href={"/home/stats"}>See all</Link>
         </div>
         <div className={styles["stat-box"]}>
             <h1>Where did you die?</h1>

@@ -6,10 +6,11 @@ import {useClickOutside} from "@/lib/useClickOutside";
 
 interface AccordionProps{
     title:string
+    isOpen?:boolean
 }
-export function Accordion({title, children}:AccordionProps){
+export function Accordion({title, isOpen, children}:AccordionProps){
 
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(isOpen || false)
     const accordionRef = useRef(null)
 
     useClickOutside(()=>{
