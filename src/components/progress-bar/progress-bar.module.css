@@ -7,6 +7,10 @@
     color: var(--text-secondary);
 }
 
+.barBox > label{
+    color: white;
+}
+
 .progressBarOuter{
     width: 100%;
     background-color: transparent;

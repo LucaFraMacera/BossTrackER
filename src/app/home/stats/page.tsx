@@ -71,23 +71,31 @@ export default function Stats(){
 
 
     return <div className={styles.statsPageBody}>
-        <div className={homeStyle["stat-box"]}>
+        <div className={styles.statBox}>
             <h1>General Stats</h1>
-            <div className={homeStyle["stat-box-info"]}>
+            <div className={styles.statBoxInfo}>
                 <Attribute className={homeStyle["stat-attribute"]} title={"Total bosses defeated"}
                            text={`${totalDefeatedBosses} / ${totalBosses}`}/>
                 <Attribute className={homeStyle["stat-attribute"]} title={"Total deaths"} text={`${totalDeaths}`}/>
                 <Attribute className={homeStyle["stat-attribute"]} title={"Most tried boss"}
                            text={mostDifficultBoss ? `${mostDifficultBoss.name}, ${mostDifficultBoss.tries}` : "You haven't tried any boss"}/>
+            </div>
+            <h1>Progress</h1>
+            <div className={styles.statBoxInfo}>
                 {defeatedBossPerRegion?.map(value=>{
-                    const [region, [defeated, total]] = value
-                    return <ProgressBar key={`progress_${region}`}
-                                        max={total} value={defeated}
-                                        label={`${region}, ${defeated} / ${total}`}/>
+                    const [mapLayer, regionMap] = value
+                    return <Accordion key={`stat_${mapLayer}`} title={mapLayer}>
+                        {Array.from(regionMap).map(([region, [defeated, total]])=>{
+                            return <ProgressBar key={`progress_${region}`}
+                                                max={total} value={defeated}
+                                                label={`${region}, ${defeated} / ${total}`}/>
+                        })}
+                    </Accordion>
                 })}
             </div>
         </div>
         <div className={styles.statsPageBodyContent}>
+            <h1>Charts</h1>
             <Suspense fallback={<Loading/>}>
                 <Accordion title={"Deaths per Region"} isOpen={true}>
                     <BossChart dataset={chartData1} chartType={"line"}/>

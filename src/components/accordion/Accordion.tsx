@@ -22,7 +22,7 @@ export function Accordion({title, isOpen, children}:AccordionProps){
             <ChevronDownIcon className={styles["accordion-icon"]}
                             style={{transform:open?"rotate(180deg)":""}}/>
         </label>
-        <div style={{maxHeight: open ? "100vh" : "0"}}
+        <div style={{maxHeight: open ? "200vh" : "0"}}
              className={styles["accordion-items"]}>
             {children}
         </div>

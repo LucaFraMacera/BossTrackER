@@ -58,12 +58,7 @@ export const externalTooltipHandler = (context:ChartConfiguration) => {
         tooltipEl.appendChild(tooltipContent);
 
     }
-    const {offsetLeft: positionX, offsetTop: positionY} = chart.canvas;
-    const isPie = chart.config._config.type == "pie"
-    // Display, position, and set styles for font
     tooltipEl.style.opacity = 1;
-    tooltipEl.style.left = tooltip._eventPosition.x + tooltip.caretX/2 + 'px';
-    tooltipEl.style.top = tooltip._eventPosition.y + tooltip.caretY/2+'px';
     tooltipEl.style.font = tooltip.options.bodyFont.string;
     tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
 };

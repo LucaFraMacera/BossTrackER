@@ -9,7 +9,7 @@ export interface DataSet{
 }
 
 export enum ChartTypeEnum{
-    BAR="Bar chart", PIE="Pie chart", LINE="Line chart"
+    BAR="Bar chart", PIE="Pie chart", LINE="Line chart", DOUGHNUT="Doughnut chart"
 }
 
 
@@ -27,8 +27,24 @@ export const CHART_OPTIONS:ChartOptions<any> = {
         },
         tooltip:{
             enabled:false,
-            position: 'nearest',
-            external: externalTooltipHandler
+            position:"nearest",
+            external: externalTooltipHandler,
+            callbacks:{
+                title:([data])=>{
+                    const {raw, chart} = data
+                    if(raw.satellite){
+                        return raw.satellite.name
+                    } else {
+                        return raw.label
+                    }
+                },
+                label:(chart)=>{
+                    console.log(chart)
+                },
+                onClick:()=>{
+                    console.log("ciao")
+                }
+            }
         },
     },
     responsive: true,
@@ -36,6 +52,10 @@ export const CHART_OPTIONS:ChartOptions<any> = {
         xAxisKey:"label",
         yAxisKey: "value",
         key: "value"
+    },
+    interactions:{
+        axis:"xy",
+        mode:"nearest"
     },
     scales:{
         y:{
