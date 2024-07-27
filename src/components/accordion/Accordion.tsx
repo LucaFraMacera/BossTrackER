@@ -6,10 +6,11 @@ import {useClickOutside} from "@/lib/useClickOutside";
 
 interface AccordionProps{
     title:string
+    isOpen?:boolean
 }
-export function Accordion({title, children}:AccordionProps){
+export function Accordion({title, isOpen, children}:AccordionProps){
 
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(isOpen || false)
     const accordionRef = useRef(null)
 
     useClickOutside(()=>{
@@ -21,7 +22,7 @@ export function Accordion({title, children}:AccordionProps){
             <ChevronDownIcon className={styles["accordion-icon"]}
                             style={{transform:open?"rotate(180deg)":""}}/>
         </label>
-        <div style={{maxHeight: open ? "100vh" : "0"}}
+        <div style={{maxHeight: open ? "200vh" : "0"}}
              className={styles["accordion-items"]}>
             {children}
         </div>

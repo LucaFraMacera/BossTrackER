@@ -15,7 +15,7 @@ export function useScreenSize():useScreenSizeResult{
 
     useEffect(() => {
         setIsSmall(isSmallScreen())
-    }, [width]);
+    }, [width, height]);
 
     return {
         height:height,

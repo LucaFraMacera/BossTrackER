@@ -1,0 +1,40 @@
+.barBox{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap:0.5rem;
+    color: var(--text-secondary);
+}
+
+.barBox > label{
+    color: white;
+}
+
+.progressBarOuter{
+    width: 100%;
+    background-color: transparent;
+    border: 0.1rem solid var(--background-primary);
+    height: 1rem;
+    overflow: hidden;
+    border-radius: 1rem;
+}
+
+.progressBarOuter > label{
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+    color: red;
+}
+
+.progressBarInner{
+    height: 100%;
+    width: 100%;
+    background-color: var(--text-secondary);
+    transform: translateX(100%);
+}
+
+.progressBar::-webkit-progress-value{
+    background-color: red;
+    color: purple;
+}

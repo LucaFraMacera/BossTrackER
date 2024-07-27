@@ -1,0 +1,78 @@
+
+.tooltipBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--standard-bg);
+    border-radius: 0.5rem;
+    opacity: 1;
+    margin-left: 2rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.tooltipBox:hover{
+    opacity: 1 !important;
+}
+
+.tooltipTitle{
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.tooltipContent{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.tooltipContentAttribute{
+    display: flex;
+    gap:0.5rem;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.tooltipLink{
+    all: unset;
+    padding: 0.5rem;
+    color: var(--text-secondary);
+    border: 0.1rem solid var(--text-primary);
+    cursor: pointer;
+    border-radius: 0.5rem;
+}
+
+.tooltipLink:hover{
+    background: rgba(var(--text-primary-rgb), 30%);
+}
+
+.chartTypeSelectBox{
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    align-items: center;
+    justify-content: center;
+}
+.chartTypeSelect{
+    width: 100%;
+    background-color: var(--background-primary);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.bossChart{
+    overflow: auto !important;
+}
+
+@media only screen and (max-width: 650px){
+    .tooltipBox{
+        margin-left: 0;
+    }
+}

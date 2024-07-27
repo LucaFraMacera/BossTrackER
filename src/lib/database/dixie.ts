@@ -138,4 +138,37 @@ export class AppDatabase extends Dexie {
         }).sortBy("id")
     }
 
+    public async getStatsPerRegion(){
+        const bossMaps = new Map<string, Map<string, [number, number]>>()
+        await this.bosses.each((boss)=>{
+            if(bossMaps.has(boss.mapLayer)){
+                const regions = bossMaps.get(boss.mapLayer)!
+                if(regions.has(boss.region)){
+                    let [defeated, total] = regions.get(boss.region)
+                    if(boss.done == DixieBoolean.true){
+                        defeated = defeated+1
+                    }
+                    regions.set(boss.region, [defeated, total+1])
+                } else {
+                    let defeated = 0
+                    if(boss.done == DixieBoolean.true){
+                        defeated = defeated+1
+                    }
+                    regions.set(boss.region, [defeated, 1])
+                }
+                bossMaps.set(boss.mapLayer, regions)
+            } else {
+                const newRegion = new Map<string, [number, number]>()
+                let defeated = 0
+                if(boss.done == DixieBoolean.true){
+                    defeated = defeated+1
+                }
+                newRegion.set(boss.region, [defeated, 1])
+                bossMaps.set(boss.mapLayer, newRegion)
+            }
+
+        })
+        return Array.from(bossMaps)
+    }
+
 }
