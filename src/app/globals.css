@@ -89,6 +89,10 @@
   margin: 0;
 }
 
+*:focus-visible{
+  outline:0.1rem solid var(--text-primary);
+}
+
 *::selection{
   background-color: rgba(187, 187, 187, 10%);
 }
@@ -178,6 +182,29 @@ input[type="checkbox"]{
   flex-wrap: wrap;
   overflow: hidden;
   transition: all 0.2s ease-in-out;
+}
+
+
+.bossLink{
+  font-size: 1rem;
+  color: var(--text-secondary);
+  border:0.1rem solid var(--text-secondary);
+  border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+  padding:0.5rem;
+  width: fit-content;
+}
+
+.bossLink:hover{
+  background-color: rgba(var(--text-primary-rgb), 20%);
+}
+
+.boss-marker-killed{
+  z-index: -999 !important;
+}
+
+button{
+  font-family: '__Buenard_d24d99', '__Buenard_Fallback_d24d99' !important;
 }
 
 .leaflet-container{

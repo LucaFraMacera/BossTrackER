@@ -14,7 +14,7 @@ export default function LandingPage() {
                  <label>Keep track of all your accomplishments</label>
              </div>
              <div className={styles["app-links"]}>
-                 <Link href={"/home"} className={styles["home-link"]}>Start</Link>
+                 <Link href={"/home"} className={`bossLink ${styles["home-link"]}`}>Start</Link>
              </div>
          </div>
       </main>

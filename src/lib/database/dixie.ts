@@ -123,7 +123,8 @@ export class AppDatabase extends Dexie {
         if(!filters){
             return this.bosses.toArray()
         }
-        return this.bosses.filter((boss)=>{
+        const [sortBy, direction] = filters.sortBy ? filters.sortBy : ["id", "ASC"]
+        let result = this.bosses.filter((boss)=>{
             const name = boss.name.toLowerCase()
             const location = boss.location.toLowerCase()
             const hasNameAndLocation = !filters.search ||
@@ -135,7 +136,11 @@ export class AppDatabase extends Dexie {
             const isMap = !filters.map || boss.mapLayer === filters.map
             const isKilled = !filters.killed || boss.done == filters.killed
             return hasNameAndLocation && hasRegion && isAtNight && isMap && isKilled
-        }).sortBy("id")
+        })
+        if(direction === "DESC"){
+            result = result.reverse()
+        }
+        return result.sortBy(sortBy)
     }
 
     public async getStatsPerMap(){

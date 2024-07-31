@@ -78,7 +78,7 @@ export default function Stats(){
                            text={`${totalDefeatedBosses} / ${totalBosses}`}/>
                 <Attribute className={homeStyle["stat-attribute"]} title={"Total deaths"} text={`${totalDeaths}`}/>
                 <Attribute className={homeStyle["stat-attribute"]} title={"Most tried boss"}
-                           text={mostDifficultBoss ? `${mostDifficultBoss.name}, ${mostDifficultBoss.tries}` : "You haven't tried any boss"}/>
+                           text={mostDifficultBoss ? `${mostDifficultBoss.name}, ${mostDifficultBoss.tries}` : "You haven't died to a boss yet"}/>
             </div>
             <h1>Progress</h1>
             <div className={styles.statBoxInfo}>

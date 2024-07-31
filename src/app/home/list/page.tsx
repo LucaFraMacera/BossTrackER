@@ -10,36 +10,41 @@ import {ComplexDropdown} from "@/components/dropdown/CustomDropDown";
 import {useLiveQuery} from "dexie-react-hooks";
 import {isSmallScreen} from "@/lib/utils";
 import {MagnifyingGlassIcon} from "@heroicons/react/16/solid";
+import {SortButton} from "@/components/sort-button/SortButton";
 
-
-export default function BossList(){
+export default function BossList() {
     const db = useContext(DatabaseContext)
-    const regionList = useLiveQuery(()=>db.getAllRegions())
+    const regionList = useLiveQuery(() => db.getAllRegions())
     const [currentList, setCurrentList] = useState<Boss[]>([])
     const [clickedBoss, setClickedBoss] = useState<Boss>(null)
     const [isCardOpen, setCardOpen] = useState<boolean>(false)
-    const [filter, setFilter] = useState<string>('')
-    const [regionFilter, setRegionFilter] = useState<string>('')
-    const [killedFilter, setKilledFilter] = useState<DixieBoolean | undefined>(undefined)
-    const [nightFilter, setNightFilter] = useState<DixieBoolean | undefined>(undefined)
-    function getList(){
-        const filters:BossFilters ={
-            search:filter,
-            region:regionFilter,
-            killed:killedFilter,
-            night:nightFilter
-        }
-        db.getBosses(filters).then((bosses)=>setCurrentList(bosses))
+    const [filters, setFilters] = useState<BossFilters>({sortBy: ["id", "ASC"]})
+
+    function getList() {
+        db.getBosses(filters).then((bosses) => setCurrentList(bosses))
     }
 
-    function openInfoCard(boss:Boss){
+    function openInfoCard(boss: Boss) {
         setClickedBoss(boss)
         setCardOpen(true)
     }
 
+    function changeSortDirection(sortBy: string) {
+        const filterSort = filters.sortBy
+        if (filterSort) {
+            setFilters({...filters, sortBy: [sortBy, filterSort[1] === "ASC" ? "DESC" : "ASC"]})
+        } else {
+            setFilters({...filters, sortBy: [sortBy, "ASC"]})
+        }
+    }
+
+    function getSortDirectionFor(attribute: string) {
+        return filters.sortBy && filters.sortBy[0] === attribute ? filters.sortBy[1] : undefined
+    }
+
     useEffect(() => {
         getList()
-    }, [filter, regionFilter, killedFilter, nightFilter]);
+    }, [filters]);
 
 
     return <div className={styles.bossList}>
@@ -48,8 +53,9 @@ export default function BossList(){
                 <form className={styles.filters}>
                     <div className={styles.filterInputBox}>
                         <label><b>Region:</b></label>
-                        <select className={"filterInput"} onChange={(e) => setRegionFilter(e.target.value)}
-                                defaultValue={''}>
+                        <select className={"filterInput"}
+                                onChange={(e) => setFilters({...filters, region: e.target.value})}
+                                defaultValue={undefined}>
                             <option disabled={true}>Select a Region...</option>
                             {regionList?.map(region => {
                                 return <option key={`region_${region}`} value={region}>{region}</option>
@@ -61,9 +67,9 @@ export default function BossList(){
                         <select className={"filterInput"}
                                 onChange={(e) => {
                                     if (e.target.value >= 0) {
-                                        setKilledFilter(e.target.value as DixieBoolean)
+                                        setFilters({...filters, killed: e.target.value as DixieBoolean})
                                     } else {
-                                        setKilledFilter(undefined)
+                                        setFilters({...filters, killed: undefined})
                                     }
                                 }}
                                 defaultValue={undefined}>
@@ -77,9 +83,9 @@ export default function BossList(){
                         <select className={"filterInput"}
                                 onChange={(e) => {
                                     if (e.target.value >= 0) {
-                                        setNightFilter(e.target.value as DixieBoolean)
+                                        setFilters({...filters, night: e.target.value as DixieBoolean})
                                     } else {
-                                        setNightFilter(undefined)
+                                        setFilters({...filters, night: undefined})
                                     }
                                 }}
                                 defaultValue={undefined}>
@@ -89,9 +95,7 @@ export default function BossList(){
                         </select>
                     </div>
                     <button onClick={() => {
-                        setFilter('')
-                        setKilledFilter(undefined)
-                        setRegionFilter('')
+                        setFilters({})
                     }}
                             className={"filterReset"} type={"reset"}>Reset
                     </button>
@@ -105,16 +109,41 @@ export default function BossList(){
                     <input className={"filterInput"}
                            type="text"
                            placeholder={"Search..."}
-                           onChange={(e) => setFilter(e.target.value)}/>
+                           onChange={(e) => setFilters({...filters, search: e.target.value})}/>
                 </div>
                 <table className={styles.bossTable}>
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Region</th>
-                        <th>Location</th>
-                        <th>Tries</th>
-                        <th>Killed</th>
+                        <th><SortButton onClick={() => {
+                            changeSortDirection("name")
+                        }}
+                                        sortDirection={getSortDirectionFor("name")}
+                        >Name
+                        </SortButton></th>
+                        <th><SortButton onClick={() => {
+                            changeSortDirection("region")
+                        }}
+                                        sortDirection={getSortDirectionFor("region")}
+                        >Region
+                        </SortButton></th>
+                        <th><SortButton onClick={() => {
+                            changeSortDirection("location")
+                        }}
+                                        sortDirection={getSortDirectionFor("location")}
+                        >Location
+                        </SortButton></th>
+                        <th><SortButton onClick={() => {
+                            changeSortDirection("tries")
+                        }}
+                                        sortDirection={getSortDirectionFor("tries")}
+                        >Tries
+                        </SortButton></th>
+                        <th><SortButton onClick={() => {
+                            changeSortDirection("done")
+                        }}
+                                        sortDirection={getSortDirectionFor("done")}
+                        >Killed
+                        </SortButton></th>
                     </tr>
                     </thead>
                     <tbody>

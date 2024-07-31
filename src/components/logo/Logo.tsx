@@ -2,6 +2,7 @@
 import Image from "next/image";
 import styles from "./logo.module.css"
 import {useEffect, useState} from "react";
+import QuestionMarkIcon from "@/components/QuestionMarkIcon";
 
 interface AnimatedLogoProps{
     size?:number

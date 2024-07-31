@@ -44,7 +44,7 @@
 
 .app-menu-links > a{
     transition: all 0.2s ease-in-out;
-    border-radius: 0 0 1rem 1rem;
+    border-radius: 1rem;
     color: var(--text-primary);
     text-decoration: none;
     text-align: center;
@@ -98,19 +98,6 @@
     font-size: 1rem;
 }
 
-.bossMapLink{
-    font-size: 1rem;
-    color: var(--text-secondary);
-    border:0.1rem solid var(--text-secondary);
-    border-radius: 0.5rem;
-    transition: all 0.2s ease-in-out;
-    padding:0.5rem;
-    width: fit-content;
-}
-
-.bossMapLink:hover{
-    background-color: rgba(var(--text-primary-rgb), 20%);
-}
 
 
 .stat-fieldset > legend{
@@ -155,8 +142,13 @@
         bottom: 0;
         width: 100%;
         align-items: center;
+        padding: 0.5rem;
         justify-content: space-evenly;
         z-index: 999;
+    }
+
+    .app-menu-links > a{
+        width: 100%;
     }
 
 }

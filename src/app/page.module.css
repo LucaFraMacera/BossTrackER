@@ -17,17 +17,9 @@
 }
 
 .home-link{
-    transition: all 0.2s ease-in-out;
-    border-radius: 0 0 1rem 1rem;
-    background: transparent;
+    text-transform: uppercase;
     padding: 0.5rem 1rem;
     font-size: 2rem;
-    color: var(--text-primary);
-    box-shadow: inset 0 -1rem 0.5rem -1rem var(--text-primary);
-}
-
-.home-link:hover{
-    box-shadow: inset 0 -1rem 1.5rem -1rem var(--text-primary);
 }
 
 .app-links{

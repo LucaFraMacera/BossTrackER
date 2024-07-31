@@ -25,11 +25,43 @@
 .bossTable > thead > tr > th {
     resize: horizontal;
     overflow: hidden;
-    padding:0.5rem;
     text-align: left;
     font-size: 1.5rem;
-    outline: 0.1rem solid var(--background-primary);
 }
+
+.bossTable > thead > tr > th > button{
+    border: 0.1rem solid var(--background-primary);
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
+    transition: all 0.2s ease-in-out;
+    width: 100%;
+    color: var(--text-secondary);
+    text-transform: capitalize;
+    font-size: 1.5rem;
+    background: transparent;
+    text-align: left;
+    font-weight: bold;
+    gap:0.5rem;
+    cursor: pointer;
+}
+
+.sortIcon{
+    width: 1.5rem;
+    height: auto;
+}
+
+.bossTable > thead > tr > th > button:hover{
+    color: var(--text-primary);
+}
+
+.bossTable > thead > tr > th > button:focus-visible{
+    outline: unset;
+    border-color: var(--text-secondary);
+}
+
 .bossTable > thead > tr{
     position: sticky;
     top: 3rem;
@@ -98,7 +130,7 @@
 }
 
 .filterMenu{
-    padding: 0 0.5rem;
+    padding: 1rem 0.5rem;
     display: flex;
     height: 100%;
     background-color: transparent;
@@ -128,6 +160,7 @@
 .searchBox > input[type="text"]{
     width: 50%;
 }
+
 
 @media only screen and (max-width: 650px){
 

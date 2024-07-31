@@ -33,7 +33,7 @@ export function InfoCard({boss, open, setOpen}:InfoCardProps){
                    <Attribute title={"Notes"} text={boss?.notes || "No additional information."}
                               className={style.markerBossAttribute}/>
                </div>
-                <BossLink bossId={boss?.id!} text={"Check map"}/>
+                <BossLink className={"bossLink"} bossId={boss?.id!} text={"Check map"}/>
             </div>
         </div>
     </div>

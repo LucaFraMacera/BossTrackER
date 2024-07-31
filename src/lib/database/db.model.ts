@@ -1,4 +1,4 @@
-import {BossType, Coordinates, DixieBoolean, MapLayerEnum, MapLayerType} from "@/lib/types";
+import {BossType, Coordinates, DixieBoolean, MapLayerEnum, MapLayerType, SortDirection} from "@/lib/types";
 
 export interface Boss{
     id:number,
@@ -21,6 +21,7 @@ export interface BossFilters{
     bossType?:BossType
     night?:DixieBoolean
     killed?:DixieBoolean
+    sortBy?:[string, SortDirection]
 }
 
 export interface RegionDataItem{

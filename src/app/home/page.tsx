@@ -28,16 +28,16 @@ export default function Home(){
                 <Attribute className={styles["stat-attribute"]} title={"Boss location"} text={`${nextBossToKill?.region}, ${nextBossToKill?.location}`}/>
                 <Attribute className={styles["stat-attribute"]} title={"Rewards"} text={nextBossToKill?.drops.length > 0 ? arrayToString(nextBossToKill?.drops!) : "Nothing"}/>
             </div>
-            <BossLink className={styles.bossMapLink} bossId={nextBossToKill?.id!} text={"Check map"}/>
+            <BossLink className={"bossLink"} bossId={nextBossToKill?.id!} text={"Check map"}/>
         </div>
         <div className={styles["stat-box"]}>
             <h1>General Stats</h1>
             <div className={styles["stat-box-info"]}>
                 <Attribute className={styles["stat-attribute"]} title={"Total bosses defeated"} text={`${totalDefeatedBosses} / ${totalBosses}`}/>
                 <Attribute className={styles["stat-attribute"]} title={"Total deaths"} text={`${totalDeaths}`}/>
-                <Attribute className={styles["stat-attribute"]} title={"Most tried boss"} text={mostDifficultBoss ? `${mostDifficultBoss.name}, ${mostDifficultBoss.tries}` : "You haven't tried any boss"}/>
+                <Attribute className={styles["stat-attribute"]} title={"Most tried boss"} text={mostDifficultBoss ? `${mostDifficultBoss.name}, ${mostDifficultBoss.tries}` : "You haven't died to a boss yet"}/>
             </div>
-            <Link className={styles.bossMapLink} href={"/home/stats"}>Check all</Link>
+            <Link className={"bossLink"} href={"/home/stats"}>Check all</Link>
         </div>
         <div className={styles["stat-box"]}>
             <h1>Where did you die?</h1>

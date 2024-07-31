@@ -15,4 +15,10 @@ export type BossType = keyof typeof BossTypeEnum
 
 export type Coordinates = [number, number]
 
+export enum SortDirectionsEnum{
+    DESC="Descending", ASC="Ascending"
+}
+
+export type SortDirection = keyof typeof SortDirectionsEnum
+
 
