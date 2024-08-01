@@ -1,5 +1,5 @@
 'use client'
-import {useRef, useState} from "react";
+import {ReactNode, useRef, useState} from "react";
 import styles from "@/components/accordion/accordion.module.css"
 import {ChevronDownIcon} from "@heroicons/react/16/solid";
 import {useClickOutside} from "@/lib/useClickOutside";
@@ -7,6 +7,7 @@ import {useClickOutside} from "@/lib/useClickOutside";
 interface AccordionProps{
     title:string
     isOpen?:boolean
+    children?:ReactNode
 }
 export function Accordion({title, isOpen, children}:AccordionProps){
 

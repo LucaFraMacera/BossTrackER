@@ -16,7 +16,7 @@ export default function BossList() {
     const db = useContext(DatabaseContext)
     const regionList = useLiveQuery(() => db.getAllRegions())
     const [currentList, setCurrentList] = useState<Boss[]>([])
-    const [clickedBoss, setClickedBoss] = useState<Boss>(null)
+    const [clickedBoss, setClickedBoss] = useState<Boss>()
     const [isCardOpen, setCardOpen] = useState<boolean>(false)
     const [filters, setFilters] = useState<BossFilters>({sortBy: ["id", "ASC"]})
 
@@ -52,8 +52,8 @@ export default function BossList() {
             <ComplexDropdown title={"Filters"} isVertical={isSmallScreen()}>
                 <form className={styles.filters}>
                     <div className={styles.filterInputBox}>
-                        <label><b>Region:</b></label>
-                        <select className={"filterInput"}
+                        <label htmlFor={"region_filter"}><b>Region:</b></label>
+                        <select name={"region_filter"} className={"filterInput"}
                                 onChange={(e) => setFilters({...filters, region: e.target.value})}
                                 defaultValue={undefined}>
                             <option disabled={true}>Select a Region...</option>
@@ -63,11 +63,12 @@ export default function BossList() {
                         </select>
                     </div>
                     <div className={styles.filterInputBox}>
-                        <label><b>Killed</b>:</label>
-                        <select className={"filterInput"}
+                        <label htmlFor={"killed_filter"}><b>Killed</b>:</label>
+                        <select name={"killed_filter"} className={"filterInput"}
                                 onChange={(e) => {
-                                    if (e.target.value >= 0) {
-                                        setFilters({...filters, killed: e.target.value as DixieBoolean})
+                                    const value = parseInt(e.target.value)
+                                    if (value >= 0) {
+                                        setFilters({...filters, killed: value})
                                     } else {
                                         setFilters({...filters, killed: undefined})
                                     }
@@ -79,11 +80,12 @@ export default function BossList() {
                         </select>
                     </div>
                     <div className={styles.filterInputBox}>
-                        <label><b>Nightly</b>:</label>
-                        <select className={"filterInput"}
+                        <label htmlFor={"night_filter"}><b>Nightly</b>:</label>
+                        <select name={"night_filter"} className={"filterInput"}
                                 onChange={(e) => {
-                                    if (e.target.value >= 0) {
-                                        setFilters({...filters, night: e.target.value as DixieBoolean})
+                                    const value = parseInt(e.target.value)
+                                    if (value >= 0) {
+                                        setFilters({...filters, night: value})
                                     } else {
                                         setFilters({...filters, night: undefined})
                                     }
@@ -106,7 +108,7 @@ export default function BossList() {
             <div className={styles.bossTableBox}>
                 <div className={styles.searchBox}>
                     <MagnifyingGlassIcon className={"icon"}/>
-                    <input className={"filterInput"}
+                    <input name={"search_filter"} className={"filterInput"}
                            type="text"
                            placeholder={"Search..."}
                            onChange={(e) => setFilters({...filters, search: e.target.value})}/>

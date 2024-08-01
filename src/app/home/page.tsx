@@ -26,7 +26,7 @@ export default function Home(){
             <div className={styles["stat-box-info"]}>
                 <Attribute className={styles["stat-attribute"]} title={"Boss name"} text={nextBossToKill?.name || ""}/>
                 <Attribute className={styles["stat-attribute"]} title={"Boss location"} text={`${nextBossToKill?.region}, ${nextBossToKill?.location}`}/>
-                <Attribute className={styles["stat-attribute"]} title={"Rewards"} text={nextBossToKill?.drops.length > 0 ? arrayToString(nextBossToKill?.drops!) : "Nothing"}/>
+                <Attribute className={styles["stat-attribute"]} title={"Rewards"} text={nextBossToKill && nextBossToKill.drops.length > 0 ? arrayToString(nextBossToKill?.drops!) : "Nothing"}/>
             </div>
             <BossLink className={"bossLink"} bossId={nextBossToKill?.id!} text={"Check map"}/>
         </div>

@@ -37,7 +37,8 @@ export default function Stats() {
 
     function getBossToDeathRatio() {
         const deaths = totalDeaths || 1
-        return (totalDefeatedBosses / Math.max(1, deaths)).toFixed(2)
+        const totalBosses = totalDefeatedBosses || 1
+        return (totalBosses / Math.max(1, deaths)).toFixed(2)
     }
 
     useEffect(() => {
@@ -117,14 +118,21 @@ export default function Stats() {
                     </Accordion>
                 })}
             </div>
-            {totalBosses === totalDefeatedBosses &&
+            {
+                totalDefeatedBosses === totalBosses &&
                 <div className={styles.statResetBox}>
-                    <b>Reset :</b>
+                    <h1>Continue your Journey</h1>
+                    <p>
+                        You&apos;ve managed to defeat all of the bosses in Elden Ring.
+                        You can now advance to the next stage of your adventure.
+                        Click the button below to advance to <b>New Game+ {currentNG!.level + 1}</b>
+                    </p>
                     <button className={"bossLink"}
                             onClick={() => setModalOpen(true)}
-                    >Reset
+                    >Progress
                     </button>
-                </div>}
+                </div>
+            }
         </div>
         <div className={styles.statsPageBodyContent}>
             <h1>Charts</h1>

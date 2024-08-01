@@ -10,34 +10,33 @@ import {XMarkIcon} from "@heroicons/react/24/outline";
 import {MapMarker} from "@/components/interactive-map/MapMarker";
 import {useSearchParams} from "next/navigation";
 import {useClickOutside} from "@/lib/useClickOutside";
-import {useLiveQuery} from "dexie-react-hooks";
 
-export function ERMap(){
+export function ERMap() {
     const params = useSearchParams()
     const db = useContext(DatabaseContext)
     const [displayedMap, setDisplayedMap] = useState<MapLayerType>("OVERWORLD")
     const [filtersOpen, setFiltersOpen] = useState<boolean>(false)
     const [regions, setRegions] = useState<string[]>([])
     const [bossList, setBossList] = useState<Boss[]>([])
-    const [filters, setFilters] = useState<BossFilters>({map:displayedMap})
+    const [filters, setFilters] = useState<BossFilters>({map: displayedMap})
     const map = useMap()
     const filterBox = useRef<HTMLDivElement | null>(null)
 
-    function markerCountFunction(bossId:number, tries:number) {
+    function markerCountFunction(bossId: number, tries: number) {
         db.setTries(bossId, tries)
         loadMarkers()
     }
 
-    function markerSetKilled(bossId:number, isKilled:DixieBoolean){
+    function markerSetKilled(bossId: number, isKilled: DixieBoolean) {
         db.setDone(bossId, isKilled)
         loadMarkers()
     }
 
-    function loadMarkers(){
-        db.getBosses(filters).then(bosses=>{
+    function loadMarkers() {
+        db.getBosses(filters).then(bosses => {
             setBossList(bosses)
         })
-        db.getAllRegions(displayedMap).then(regions=>setRegions(regions))
+        db.getAllRegions(displayedMap).then(regions => setRegions(regions))
     }
 
     useEffect(() => {
@@ -45,31 +44,32 @@ export function ERMap(){
     }, [displayedMap, filters, db]);
 
     useEffect(() => {
-        if(params && params.has("boss")){
+        if (params && params.has("boss")) {
             const bossId = params.get("boss")!
-            try{
-                db.getBoss(parseInt(bossId)).then((boss)=>{
-                    if(boss){
+            try {
+                db.getBoss(parseInt(bossId)).then((boss) => {
+                    if (boss) {
                         map.flyTo(boss.coordinates, 6)
                     }
                 })
-            }catch (error){}
+            } catch (error) {
+            }
         }
     }, [params])
 
-    useClickOutside(()=>{
+    useClickOutside(() => {
         setFiltersOpen(false)
     }, filterBox)
 
     useEffect(() => {
-        if(params.has("boss")){
+        if (params.has("boss")) {
             const id = parseInt(params.get("boss")!)
-            db.getBoss(id).then((boss)=>{
-                if(!boss){
+            db.getBoss(id).then((boss) => {
+                if (!boss) {
                     return
                 }
                 setDisplayedMap(boss.mapLayer)
-                setFilters({...filters, map:boss.mapLayer})
+                setFilters({...filters, map: boss.mapLayer})
             })
         }
     }, [params, db]);
@@ -80,19 +80,21 @@ export function ERMap(){
         />
         <ZoomControl position={"topleft"}/>
         {bossList &&
-            bossList.map(boss=>{
+            bossList.map(boss => {
                     return <MapMarker key={`boss_${boss.id}`}
-                               boss={boss}
-                               counterFunction={markerCountFunction}
-                               setKilled={markerSetKilled}
+                                      boss={boss}
+                                      counterFunction={markerCountFunction}
+                                      setKilled={markerSetKilled}
                     />
                 }
             )}
-        <div className={`${styles.mapFiltersBox} ${styles['divide-y']} ${!filtersOpen ? styles.close : ""}`} ref={filterBox}>
+        <div className={`${styles.mapFiltersBox} ${styles['divide-y']} ${!filtersOpen ? styles.close : ""}`}
+             ref={filterBox}>
             {filtersOpen ?
-                <XMarkIcon className={`icon ${styles.filtersIcon}`} onClick={()=>setFiltersOpen(!filtersOpen)}/>
+                <XMarkIcon className={`icon ${styles.filtersIcon}`} onClick={() => setFiltersOpen(!filtersOpen)}/>
                 :
-                <AdjustmentsHorizontalIcon className={`icon ${styles.filtersIcon}`} onClick={()=>setFiltersOpen(!filtersOpen)}/>
+                <AdjustmentsHorizontalIcon className={`icon ${styles.filtersIcon}`}
+                                           onClick={() => setFiltersOpen(!filtersOpen)}/>
             }
             <div className={`${styles.mapFilters}`}>
                 <div className={styles.filterBox}>
