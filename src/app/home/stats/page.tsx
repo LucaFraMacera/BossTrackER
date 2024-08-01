@@ -32,12 +32,13 @@ export default function Stats() {
     const defeatedBossPerRegion = useLiveQuery(() => db.getStatsPerMap())
     const currentNG = useLiveQuery(() => db.getCurrentNGLevel())
     const ngHistory = useLiveQuery(() => db.getNgHistory())
+    const canProgressNG = useLiveQuery(()=>db.canProgressNgLevel())
     const [modalOpen, setModalOpen] = useState<boolean>(false)
     const {isSmall} = useScreenSize()
 
     function getBossToDeathRatio() {
         const deaths = totalDeaths || 1
-        const totalBosses = totalDefeatedBosses || 1
+        const totalBosses = totalDefeatedBosses || 0
         return (totalBosses / Math.max(1, deaths)).toFixed(2)
     }
 
@@ -119,13 +120,13 @@ export default function Stats() {
                 })}
             </div>
             {
-                totalDefeatedBosses === totalBosses &&
+                (canProgressNG || totalDefeatedBosses === totalBosses) &&
                 <div className={styles.statResetBox}>
                     <h1>Continue your Journey</h1>
                     <p>
-                        You&apos;ve managed to defeat all of the bosses in Elden Ring.
+                        You&apos;ve managed to defeat the final boss of Elden Ring.
                         You can now advance to the next stage of your adventure.
-                        Click the button below to advance to <b>New Game+ {currentNG!.level + 1}</b>
+                        Click the button below to advance to <b>New Game+ {currentNG?.level + 1}</b>
                     </p>
                     <button className={"bossLink"}
                             onClick={() => setModalOpen(true)}
@@ -183,8 +184,10 @@ export default function Stats() {
                     <div className={styles.statBoxInfo}>
                         {ngHistory.map((ngLevel) => {
                             return ngLevel.endDate &&
-                                <Accordion key={`ng_${ngLevel}`} title={`New Game Plus ${ngLevel.level}`}>
+                                <Accordion key={`ng_${ngLevel.level}`} title={`New Game Plus ${ngLevel.level}`}>
                                     <div className={styles.statBoxInfo}>
+                                        <Attribute className={homeStyle["stat-attribute"]} title={"Total boss defeated"}
+                                                   text={`${ngLevel.defeatedBossesCount || 0}`}/>
                                         <Attribute className={homeStyle["stat-attribute"]} title={"Total deaths"}
                                                    text={`${ngLevel.deaths}`}/>
                                         <Attribute className={homeStyle["stat-attribute"]} title={"Boss to death ratio"}
@@ -194,7 +197,7 @@ export default function Stats() {
                                         <Attribute className={homeStyle["stat-attribute"]} title={"End date"}
                                                    text={`${ngLevel.endDate}`}/>
                                         <Attribute className={homeStyle["stat-attribute"]} title={"Most tried boss"}
-                                                   text={`${ngLevel.mostDifficult?.name || ""}, ${ngLevel.mostDifficult?.tries || ""}`}/>
+                                                   text={ngLevel.mostDifficult ? `${ngLevel.mostDifficult.name}, ${ngLevel.mostDifficult.tries}` : "You haven't died to any boss!"}/>
                                     </div>
                                 </Accordion>
                         })}

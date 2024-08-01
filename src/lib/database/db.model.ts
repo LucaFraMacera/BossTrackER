@@ -21,6 +21,7 @@ export interface NGData{
     endDate?:string
     deaths?:number
     bossDeathRatio?:number,
+    defeatedBossesCount?:number,
     mostDifficult?:Boss
 }
 

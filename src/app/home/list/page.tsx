@@ -56,7 +56,7 @@ export default function BossList() {
                         <select name={"region_filter"} className={"filterInput"}
                                 onChange={(e) => setFilters({...filters, region: e.target.value})}
                                 defaultValue={undefined}>
-                            <option disabled={true}>Select a Region...</option>
+                            <option value={''}>All</option>
                             {regionList?.map(region => {
                                 return <option key={`region_${region}`} value={region}>{region}</option>
                             })}
@@ -67,6 +67,7 @@ export default function BossList() {
                         <select name={"killed_filter"} className={"filterInput"}
                                 onChange={(e) => {
                                     const value = parseInt(e.target.value)
+                                    console.log(value)
                                     if (value >= 0) {
                                         setFilters({...filters, killed: value})
                                     } else {
@@ -84,6 +85,7 @@ export default function BossList() {
                         <select name={"night_filter"} className={"filterInput"}
                                 onChange={(e) => {
                                     const value = parseInt(e.target.value)
+                                    console.log(value)
                                     if (value >= 0) {
                                         setFilters({...filters, night: value})
                                     } else {

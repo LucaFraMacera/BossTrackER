@@ -44,7 +44,8 @@ export class AppDatabase extends Dexie {
             const totalDeaths = await this.getTotalDeaths()
             const totalBossesDefeated = await this.getDefeatedBossesCount()
             const mostDifficult = await this.getMostTriedBoss()
-            if(totalBossesDefeated !== (await this.bosses.count())){
+            const canProgress = await this.canProgressNgLevel()
+            if(!canProgress && totalBossesDefeated !== (await this.bosses.count())){
                 return
             }
             const currentDate = new Date()
@@ -57,7 +58,8 @@ export class AppDatabase extends Dexie {
                     endDate:currentDateString,
                     deaths:totalDeaths,
                     bossDeathRatio: parseFloat((totalBossesDefeated / Math.max(1, totalDeaths)).toFixed(2)),
-                    mostDifficult: mostDifficult
+                    mostDifficult: mostDifficult,
+                    defeatedBossesCount:totalBossesDefeated
                 })
             await this.ngData.add({
                 level: currentNG ? currentNG.level + 1 : 1,
@@ -70,6 +72,14 @@ export class AppDatabase extends Dexie {
 
     public getCurrentNGLevel(){
         return this.ngData.toCollection().last()
+    }
+
+    public async canProgressNgLevel(){
+        const lastBoss = await this.bosses.where({name:"Radagon of the Golden Order & Elden Beast"}).first()
+        if(!lastBoss){
+            return false
+        }
+        return lastBoss.done==DixieBoolean.true
     }
 
     public getNgHistory(){
@@ -187,7 +197,7 @@ export class AppDatabase extends Dexie {
             const nightly = location.toLowerCase().includes("at night")
             const isAtNight = filters.night == undefined || !xor(nightly, filters.night == DixieBoolean.true)
             const isMap = !filters.map || boss.mapLayer === filters.map
-            const isKilled = !filters.killed || boss.done == filters.killed
+            const isKilled = filters.killed===undefined || boss.done == filters.killed
             return hasNameAndLocation && hasRegion && isAtNight && isMap && isKilled
         })
         if (direction === "DESC") {
