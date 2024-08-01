@@ -1,3 +1,4 @@
+'use client'
 import {useWindow} from "@/lib/useWindow";
 import {useEffect, useState} from "react";
 import {isSmallScreen} from "@/lib/utils";

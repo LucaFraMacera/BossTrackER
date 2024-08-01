@@ -1,3 +1,4 @@
+'use client'
 import {ReactNode, useRef, useState} from "react";
 import {
     AdjustmentsHorizontalIcon,
@@ -12,12 +13,12 @@ import {useClickOutside} from "@/lib/useClickOutside";
 interface ComplexDropdownProps{
     title:string
     children:ReactNode
-    isVertical?:boolean
+    isOpen?:boolean
 }
 
-export function ComplexDropdown({children, title, isVertical}:ComplexDropdownProps){
+export function ComplexDropdown({children, title, isOpen}:ComplexDropdownProps){
 
-    const [open, setOpen] = useState(!isVertical)
+    const [open, setOpen] = useState(isOpen)
     const dropdownRef = useRef<HTMLDivElement | null>(null)
 
     useClickOutside(()=>{

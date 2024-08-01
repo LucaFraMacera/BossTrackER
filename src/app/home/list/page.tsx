@@ -8,7 +8,6 @@ import {DixieBoolean} from "@/lib/types";
 import {InfoCard} from "@/components/info-card/InfoCard";
 import {ComplexDropdown} from "@/components/dropdown/CustomDropDown";
 import {useLiveQuery} from "dexie-react-hooks";
-import {isSmallScreen} from "@/lib/utils";
 import {MagnifyingGlassIcon} from "@heroicons/react/16/solid";
 import {SortButton} from "@/components/sort-button/SortButton";
 
@@ -49,7 +48,7 @@ export default function BossList() {
 
     return <div className={styles.bossList}>
         <div className={styles.filterMenu}>
-            <ComplexDropdown title={"Filters"} isVertical={isSmallScreen()}>
+            <ComplexDropdown title={"Filters"}>
                 <form className={styles.filters}>
                     <div className={styles.filterInputBox}>
                         <label htmlFor={"region_filter"}><b>Region:</b></label>

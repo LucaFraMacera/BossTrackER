@@ -1,36 +1,45 @@
+'use client'
 import Dexie, {Table} from "dexie";
 import {Boss, BossFilters, NGData, RegionDataItem} from "@/lib/database/db.model";
 import {DEFAULT_BOSS_LIST} from "./defaultData"
 import {DixieBoolean, MapLayerType} from "@/lib/types";
 import {xor} from "@/lib/utils";
-
+import fakeIndexedDB from "fake-indexeddb";
 
 export class AppDatabase extends Dexie {
     bosses!: Table<Boss>;
     ngData!: Table<NGData>;
 
     constructor() {
-        super('AppDB')
-        this.version(1).stores({
-            bosses: '++id, name, location, region, mapLayer, done, tries',
-            ngData: '++id, level, startDate, endDate, deaths'
-        })
-        if (this.bosses) {
-            this.bosses.count().then(size => {
-                if (size === 0) {
-                    this.bosses.bulkAdd(DEFAULT_BOSS_LIST)
-                }
+        try {
+            super('AppDB', {
+                indexedDB:indexedDB
             })
-        }
-        if (this.ngData) {
-            this.ngData.count().then((size) => {
-                if (size === 0) {
-                    const currentDate = new Date()
-                    this.ngData.add({
-                        level: 0,
-                        startDate: `${currentDate.toLocaleDateString()}, ${currentDate.toLocaleTimeString()}`
-                    })
-                }
+            this.version(1).stores({
+                bosses: '++id, name, location, region, mapLayer, done, tries',
+                ngData: '++id, level, startDate, endDate, deaths'
+            })
+            if (this.bosses) {
+                this.bosses.count().then(size => {
+                    if (size === 0) {
+                        this.bosses.bulkAdd(DEFAULT_BOSS_LIST)
+                    }
+                })
+            }
+            if (this.ngData) {
+                this.ngData.count().then((size) => {
+                    if (size === 0) {
+                        const currentDate = new Date()
+                        this.ngData.add({
+                            level: 0,
+                            startDate: `${currentDate.toLocaleDateString()}, ${currentDate.toLocaleTimeString()}`
+                        })
+                    }
+                })
+            }
+        }catch (error){
+            super("AppDB", {
+                indexedDB:fakeIndexedDB
             })
         }
     }
