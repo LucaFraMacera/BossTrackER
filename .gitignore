@@ -132,6 +132,3 @@ dist
 # .idea
 .idea
 .idea/*
-
-public/maps
-public/maps/*
