@@ -14,6 +14,16 @@ export interface Boss{
     coordinates:Coordinates
 }
 
+export interface NGData{
+    id?:number
+    level:number
+    startDate:string
+    endDate?:string
+    deaths?:number
+    bossDeathRatio?:number,
+    mostDifficult?:Boss
+}
+
 export interface BossFilters{
     search?:string
     region?:string

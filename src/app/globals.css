@@ -131,6 +131,7 @@ input[type="checkbox"]{
   height: 1.5rem;
   width: 1rem;
   border-radius: 2rem;
+  cursor: pointer;
 }
 
 .icon{
@@ -186,6 +187,7 @@ input[type="checkbox"]{
 
 
 .bossLink{
+  all: unset;
   font-size: 1rem;
   color: var(--text-secondary);
   border:0.1rem solid var(--text-secondary);
@@ -196,6 +198,7 @@ input[type="checkbox"]{
 }
 
 .bossLink:hover{
+  cursor: pointer;
   background-color: rgba(var(--text-primary-rgb), 20%);
 }
 

@@ -6,7 +6,6 @@ import {ReactNode} from "react";
 import {useScreenSize} from "@/lib/useScreenSize";
 import {HomeIcon, ListBulletIcon, MapIcon} from "@heroicons/react/16/solid";
 import Image from "next/image";
-import Home from "@/app/home/page";
 
 interface MenuLinkProps {
     href: string,

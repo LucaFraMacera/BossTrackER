@@ -21,17 +21,13 @@ const getOrCreateTooltip = (chart:Chart) => {
 };
 
 export const externalTooltipHandler = (context:ChartConfiguration) => {
-    // Tooltip Element
     const {chart, tooltip} = context;
     const tooltipEl = getOrCreateTooltip(chart);
 
-    // Hide if no tooltip
     if (tooltip.opacity === 0) {
-        tooltipEl.style.opacity = 0
         return;
     }
 
-    // Set Text
     if (tooltip.body) {
         const tooltipData = tooltip.dataPoints[0].raw as ChartDataValue
         const titleLines = tooltip.title || "";
@@ -44,7 +40,6 @@ export const externalTooltipHandler = (context:ChartConfiguration) => {
         }
         tooltipTitle.innerText = titleLines
         tooltipContent.appendChild(createTooltipAttribute(tooltip, tooltipData))
-        // Add new children
 
         if(tooltipData.satellite){
             const link = document.createElement("a")

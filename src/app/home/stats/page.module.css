@@ -20,7 +20,7 @@
 }
 
 .statBox{
-    width: 100%;
+    width: 70%;
     font-size: 2rem;
     border-radius: 1rem;
     padding: 2rem;
@@ -38,6 +38,14 @@
     -webkit-text-stroke: 0.2rem rgba(var(--text-primary-rgb), 20%);
 }
 
+.statResetBox{
+    padding: 0 0.5rem;
+    display: flex;
+    gap:0.5rem;
+    align-items: center;
+    color: var(--text-primary);
+}
+
 .statBoxInfo{
     width: 100%;
     font-size: 1.2rem;
@@ -50,6 +58,10 @@
 
 @media only screen and (max-width: 1200px){
     .statsPageBodyContent{
+        width: 100%;
+    }
+
+    .statBox{
         width: 100%;
     }
 }

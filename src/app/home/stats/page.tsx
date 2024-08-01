@@ -14,63 +14,79 @@ import {BossFilters} from "@/lib/database/db.model";
 import {MapLayerEnum, MapLayerType} from "@/lib/types";
 import {Attribute} from "@/components/Attribute";
 import {ProgressBar} from "@/components/progress-bar/ProgressBar";
+import {NgModal} from "@/components/ng-modal/NgModal";
 
 
-export default function Stats(){
+export default function Stats() {
 
     const db = useContext(DatabaseContext)
-    const regionsDeaths = useLiveQuery(()=>db.getDeathsPerRegion())
-    const [filters1, setFilters1] = useState<BossFilters>({map:"OVERWORLD"})
+    const regionsDeaths = useLiveQuery(() => db.getDeathsPerRegion())
+    const [filters1, setFilters1] = useState<BossFilters>({map: "OVERWORLD"})
     const [regions, setRegions] = useState<string[]>([])
     const [chartData1, setChartData1] = useState<any>(DEFAULT_DATA)
     const [chartData2, setChartData2] = useState<any>(DEFAULT_DATA)
-    const totalBosses = useLiveQuery(()=>db.getTotalBossesCount())
-    const totalDefeatedBosses = useLiveQuery(()=> db.getDefeatedBossesCount())
-    const mostDifficultBoss = useLiveQuery(()=>db.getMostTriedBoss())
-    const totalDeaths = useLiveQuery(()=>db.getTotalDeaths())
-    const defeatedBossPerRegion = useLiveQuery(()=>db.getStatsPerMap())
+    const totalBosses = useLiveQuery(() => db.getTotalBossesCount())
+    const totalDefeatedBosses = useLiveQuery(() => db.getDefeatedBossesCount())
+    const mostDifficultBoss = useLiveQuery(() => db.getMostTriedBoss())
+    const totalDeaths = useLiveQuery(() => db.getTotalDeaths())
+    const defeatedBossPerRegion = useLiveQuery(() => db.getStatsPerMap())
+    const currentNG = useLiveQuery(() => db.getCurrentNGLevel())
+    const ngHistory = useLiveQuery(() => db.getNgHistory())
+    const [modalOpen, setModalOpen] = useState<boolean>(false)
     const {isSmall} = useScreenSize()
 
+    function getBossToDeathRatio() {
+        const deaths = totalDeaths || 1
+        return (totalDefeatedBosses / Math.max(1, deaths)).toFixed(2)
+    }
+
     useEffect(() => {
-        if(!regionsDeaths){
+        if (!regionsDeaths) {
             return
         }
-        const filteredRegions = regionsDeaths.filter(([region, value])=>value.deaths > 0)
+        const filteredRegions = regionsDeaths.filter(([region, value]) => value.deaths > 0)
         setChartData1(getDataSetFromArray({
-            title:"Deaths Per Region",
-            data:filteredRegions.map(([region, value])=>{
-                return{
-                    label:region,
-                    value:value.deaths,
-                    satellite:value.mostTried
+            title: "Deaths Per Region",
+            data: filteredRegions.map(([region, value]) => {
+                return {
+                    label: region,
+                    value: value.deaths,
+                    satellite: value.mostTried
                 }
             }) || [],
-            labels:filteredRegions.map(([region, value])=>region) || []
+            labels: filteredRegions.map(([region, value]) => region) || []
         }))
     }, [regionsDeaths, isSmall]);
 
 
     useEffect(() => {
-        db.getBosses(filters1).then((bosses)=>{
+        db.getBosses(filters1).then((bosses) => {
             setChartData2(getDataSetFromArray({
-                title:"Deaths by Bosses",
-                data: bosses.map(boss=>{
-                    return{
-                        label:boss.name,
-                        value:boss.tries,
-                        satellite:boss
+                title: "Deaths by Bosses",
+                data: bosses.map(boss => {
+                    return {
+                        label: boss.name,
+                        value: boss.tries,
+                        satellite: boss
                     }
                 }),
-                labels: bosses.map(boss=>boss.name)
+                labels: bosses.map(boss => boss.name)
             }))
         })
-        db.getAllRegions(filters1.map).then((regions)=>{
+        db.getAllRegions(filters1.map).then((regions) => {
             setRegions(regions)
         })
     }, [filters1])
 
 
     return <div className={styles.statsPageBody}>
+        <NgModal isOpen={modalOpen} setOpen={setModalOpen}
+                 title={"Continue your journey"}
+                 text={`Do you want to progress to NG+ ${currentNG?.level + 1}`}
+                 onConfirm={() => {
+                     db.resetBosses()
+                 }}
+        />
         <div className={styles.statBox}>
             <h1>General Stats</h1>
             <div className={styles.statBoxInfo}>
@@ -79,13 +95,21 @@ export default function Stats(){
                 <Attribute className={homeStyle["stat-attribute"]} title={"Total deaths"} text={`${totalDeaths}`}/>
                 <Attribute className={homeStyle["stat-attribute"]} title={"Most tried boss"}
                            text={mostDifficultBoss ? `${mostDifficultBoss.name}, ${mostDifficultBoss.tries}` : "You haven't died to a boss yet"}/>
+                <Attribute className={homeStyle["stat-attribute"]} title={"Boss to death ratio"}
+                           text={`${getBossToDeathRatio()}`}/>
+                <Attribute className={homeStyle["stat-attribute"]} title={"Current NG+ level"}
+                           text={`${currentNG?.level || 0}`}/>
+                <Attribute className={homeStyle["stat-attribute"]} title={"Start date"}
+                           text={`${currentNG?.startDate}`}/>
             </div>
+        </div>
+        <div className={styles.statBox}>
             <h1>Progress</h1>
             <div className={styles.statBoxInfo}>
-                {defeatedBossPerRegion?.map(value=>{
+                {defeatedBossPerRegion?.map(value => {
                     const [mapLayer, regionMap] = value
-                    return <Accordion key={`stat_${mapLayer}`} title={mapLayer}>
-                        {Array.from(regionMap).map(([region, [defeated, total]])=>{
+                    return <Accordion key={`stat_${mapLayer}`} title={MapLayerEnum[mapLayer]}>
+                        {Array.from(regionMap).map(([region, [defeated, total]]) => {
                             return <ProgressBar key={`progress_${region}`}
                                                 max={total} value={defeated}
                                                 label={`${region}, ${defeated} / ${total}`}/>
@@ -93,6 +117,14 @@ export default function Stats(){
                     </Accordion>
                 })}
             </div>
+            {totalBosses === totalDefeatedBosses &&
+                <div className={styles.statResetBox}>
+                    <b>Reset :</b>
+                    <button className={"bossLink"}
+                            onClick={() => setModalOpen(true)}
+                    >Reset
+                    </button>
+                </div>}
         </div>
         <div className={styles.statsPageBodyContent}>
             <h1>Charts</h1>
@@ -135,6 +167,33 @@ export default function Stats(){
                     <BossChart dataset={chartData2}/>
                 </Accordion>
             </Suspense>
+        </div>
+        <div className={styles.statBox}>
+            <h1>History</h1>
+            {
+                ngHistory && ngHistory?.length > 0 ?
+                    <div className={styles.statBoxInfo}>
+                        {ngHistory.map((ngLevel) => {
+                            return ngLevel.endDate &&
+                                <Accordion key={`ng_${ngLevel}`} title={`New Game Plus ${ngLevel.level}`}>
+                                    <div className={styles.statBoxInfo}>
+                                        <Attribute className={homeStyle["stat-attribute"]} title={"Total deaths"}
+                                                   text={`${ngLevel.deaths}`}/>
+                                        <Attribute className={homeStyle["stat-attribute"]} title={"Boss to death ratio"}
+                                                   text={`${ngLevel.bossDeathRatio}`}/>
+                                        <Attribute className={homeStyle["stat-attribute"]} title={"Start date"}
+                                                   text={`${ngLevel.startDate}`}/>
+                                        <Attribute className={homeStyle["stat-attribute"]} title={"End date"}
+                                                   text={`${ngLevel.endDate}`}/>
+                                        <Attribute className={homeStyle["stat-attribute"]} title={"Most tried boss"}
+                                                   text={`${ngLevel.mostDifficult?.name || ""}, ${ngLevel.mostDifficult?.tries || ""}`}/>
+                                    </div>
+                                </Accordion>
+                        })}
+                    </div>
+                    :
+                    <label>There is no history present.</label>
+            }
         </div>
     </div>
 
