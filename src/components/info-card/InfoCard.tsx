@@ -24,16 +24,20 @@ export function InfoCard({boss, open, setOpen}:InfoCardProps){
             </div>
 
             <div className={`${style.markerInfos}`}>
-                <h1 className={style.markerTitle}>{boss?.name}</h1>
-               <div className={style.markerBossInfo}>
-                   <Attribute title={"Region"} text={`${boss?.region}`} className={style.markerBossAttribute}/>
-                   <Attribute title={"Location"} text={`${boss?.location}`} className={style.markerBossAttribute}/>
-                   <Attribute title={"Drops"} text={boss?.drops?.length > 0 ? arrayToString(boss?.drops!) : "No drops."}
-                              className={style.markerBossAttribute}/>
-                   <Attribute title={"Notes"} text={boss?.notes || "No additional information."}
-                              className={style.markerBossAttribute}/>
-               </div>
-                <BossLink className={"bossLink"} bossId={boss?.id!} text={"Check map"}/>
+                {boss && <>
+                    <h1 className={style.markerTitle}>{boss.name}</h1>
+                    <div className={style.markerBossInfo}>
+                        <Attribute title={"Region"} text={`${boss.region}`} className={style.markerBossAttribute}/>
+                        <Attribute title={"Location"} text={`${boss.location}`} className={style.markerBossAttribute}/>
+                        <Attribute title={"Drops"}
+                                   text={boss.drops.length > 0 ? arrayToString(boss.drops) : "No drops."}
+                                   className={style.markerBossAttribute}/>
+                        <Attribute title={"Notes"} text={boss.notes || "No additional information."}
+                                   className={style.markerBossAttribute}/>
+                    </div>
+                    <BossLink className={"bossLink"} bossId={boss.id} text={"Check map"}/>
+                </>
+                }
             </div>
         </div>
     </div>

@@ -20,7 +20,7 @@ import mapStyles from "@/components/interactive-map/map.module.css"
 import {ChartValues} from "@/lib/charts/chart.model";
 
 interface BossChartProps{
-    dataset:ChartDataset<ChartValues>
+    dataset:ChartDataset<any>
     chartType?:ChartType
 }
 

@@ -9,7 +9,7 @@ interface ProgressBarProps{
 
 export function ProgressBar({value, max, label,className}:ProgressBarProps){
 
-    const percentage = value <= max ? value / max * 100 : 0
+    const percentage = value != undefined && value <= max ? value / max * 100 : 0
 
     return <div className={className || styles.barBox}>
         {label && <label>{label}</label>}

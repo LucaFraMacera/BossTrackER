@@ -22,12 +22,12 @@ export class AppDatabase extends Dexie {
                 }
             })
         }
-        if(this.ngData){
-            this.ngData.count().then((size)=>{
-                if(size === 0){
+        if (this.ngData) {
+            this.ngData.count().then((size) => {
+                if (size === 0) {
                     const currentDate = new Date()
                     this.ngData.add({
-                        level:0,
+                        level: 0,
                         startDate: `${currentDate.toLocaleDateString()}, ${currentDate.toLocaleTimeString()}`
                     })
                 }
@@ -45,7 +45,7 @@ export class AppDatabase extends Dexie {
             const totalBossesDefeated = await this.getDefeatedBossesCount()
             const mostDifficult = await this.getMostTriedBoss()
             const canProgress = await this.canProgressNgLevel()
-            if(!canProgress && totalBossesDefeated !== (await this.bosses.count())){
+            if (!canProgress && totalBossesDefeated !== (await this.bosses.count())) {
                 return
             }
             const currentDate = new Date()
@@ -55,11 +55,11 @@ export class AppDatabase extends Dexie {
             const currentDateString = `${currentDate.toLocaleDateString()}, ${currentDate.toLocaleTimeString()}`
             await this.ngData.update(currentNG?.id,
                 {
-                    endDate:currentDateString,
-                    deaths:totalDeaths,
+                    endDate: currentDateString,
+                    deaths: totalDeaths,
                     bossDeathRatio: parseFloat((totalBossesDefeated / Math.max(1, totalDeaths)).toFixed(2)),
                     mostDifficult: mostDifficult,
-                    defeatedBossesCount:totalBossesDefeated
+                    defeatedBossesCount: totalBossesDefeated
                 })
             await this.ngData.add({
                 level: currentNG ? currentNG.level + 1 : 1,
@@ -70,19 +70,19 @@ export class AppDatabase extends Dexie {
         }
     }
 
-    public getCurrentNGLevel(){
+    public getCurrentNGLevel() {
         return this.ngData.toCollection().last()
     }
 
-    public async canProgressNgLevel(){
-        const lastBoss = await this.bosses.where({name:"Radagon of the Golden Order & Elden Beast"}).first()
-        if(!lastBoss){
+    public async canProgressNgLevel() {
+        const lastBoss = await this.bosses.where({name: "Radagon of the Golden Order & Elden Beast"}).first()
+        if (!lastBoss) {
             return false
         }
-        return lastBoss.done==DixieBoolean.true
+        return lastBoss.done == DixieBoolean.true
     }
 
-    public getNgHistory(){
+    public getNgHistory() {
         return this.ngData.where("endDate").notEqual("").toArray()
     }
 
@@ -126,19 +126,6 @@ export class AppDatabase extends Dexie {
         return totalDeaths
     }
 
-    public async getTotalDeathsForRegions() {
-        const regionsMap = new Map<string, number>()
-        await this.bosses.each(boss => {
-            if (regionsMap.has(boss.region)) {
-                regionsMap.set(boss.region, regionsMap.get(boss.region) + boss.tries)
-            } else {
-                regionsMap.set(boss.region, boss.tries)
-            }
-
-        })
-        return Array.from(regionsMap.entries())
-    }
-
     public async getDeathsPerRegion() {
         const result: Map<string, RegionDataItem> = new Map<string, RegionDataItem>
         await this.bosses.each(boss => {
@@ -152,7 +139,7 @@ export class AppDatabase extends Dexie {
             } else {
                 result.set(boss.region, {
                     deaths: value.deaths + boss.tries,
-                    mostTried: value.mostTried?.tries >= boss.tries ? value.mostTried : boss
+                    mostTried: value.mostTried && value.mostTried.tries >= boss.tries ? value.mostTried : boss
                 })
             }
         })
@@ -161,17 +148,6 @@ export class AppDatabase extends Dexie {
 
     public getMostTriedBoss() {
         return this.bosses.where("tries").above(0).last()
-    }
-
-    public getMostDeaths(region?: string) {
-        if (region) {
-            return this.bosses.filter(boss => {
-                return boss.tries >= 0 && boss.region === region
-            }).last()
-        }
-        return this.bosses.filter(boss => {
-            return boss.tries > 0
-        }).last()
     }
 
     public setTries(id: number, tries: number) {
@@ -197,7 +173,7 @@ export class AppDatabase extends Dexie {
             const nightly = location.toLowerCase().includes("at night")
             const isAtNight = filters.night == undefined || !xor(nightly, filters.night == DixieBoolean.true)
             const isMap = !filters.map || boss.mapLayer === filters.map
-            const isKilled = filters.killed===undefined || boss.done == filters.killed
+            const isKilled = filters.killed === undefined || boss.done == filters.killed
             return hasNameAndLocation && hasRegion && isAtNight && isMap && isKilled
         })
         if (direction === "DESC") {
@@ -212,7 +188,7 @@ export class AppDatabase extends Dexie {
             if (bossMaps.has(boss.mapLayer)) {
                 const regions = bossMaps.get(boss.mapLayer)!
                 if (regions.has(boss.region)) {
-                    let [defeated, total] = regions.get(boss.region)
+                    let [defeated, total] = regions.get(boss.region)!
                     if (boss.done == DixieBoolean.true) {
                         defeated = defeated + 1
                     }

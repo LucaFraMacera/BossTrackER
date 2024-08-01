@@ -84,7 +84,7 @@ export default function Stats() {
     return <div className={styles.statsPageBody}>
         <NgModal isOpen={modalOpen} setOpen={setModalOpen}
                  title={"Continue your journey"}
-                 text={`Do you want to progress to NG+ ${currentNG?.level + 1}`}
+                 text={`Do you want to progress to NG+ ${currentNG ? currentNG?.level + 1 : 1}`}
                  onConfirm={() => {
                      db.resetBosses()
                  }}
@@ -110,7 +110,8 @@ export default function Stats() {
             <div className={styles.statBoxInfo}>
                 {defeatedBossPerRegion?.map(value => {
                     const [mapLayer, regionMap] = value
-                    return <Accordion key={`stat_${mapLayer}`} title={MapLayerEnum[mapLayer]}>
+                    const layer = mapLayer as MapLayerType
+                    return <Accordion key={`stat_${mapLayer}`} title={MapLayerEnum[layer]}>
                         {Array.from(regionMap).map(([region, [defeated, total]]) => {
                             return <ProgressBar key={`progress_${region}`}
                                                 max={total} value={defeated}
@@ -126,7 +127,7 @@ export default function Stats() {
                     <p>
                         You&apos;ve managed to defeat the final boss of Elden Ring.
                         You can now advance to the next stage of your adventure.
-                        Click the button below to advance to <b>New Game+ {currentNG?.level + 1}</b>
+                        Click the button below to advance to <b>New Game+ {currentNG ? currentNG.level + 1 : 1}</b>
                     </p>
                     <button className={"bossLink"}
                             onClick={() => setModalOpen(true)}

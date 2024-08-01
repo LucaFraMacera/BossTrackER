@@ -46,7 +46,7 @@ export function MapMarker({boss, counterFunction, setKilled}:MapMarkerProps){
         boss.bossType == "REMEMBRANCE"? REMEMBRANCE_MARKER :
             boss.bossType == "INVADER" ? INVADER_MARKER : OPTIONAL_MARKER
     }>
-        <Popup open={true}>
+        <Popup>
             <div className={`${style.markerInfos}`}>
                 <h1 className={style.markerTitle}>{boss.name}</h1>
                 <div className={`${style.markerBossInfo}`}>

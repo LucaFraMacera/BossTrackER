@@ -1,8 +1,11 @@
 import styles from "@/components/boss-chart/boss-chart.module.css"
-import {Chart, ChartConfiguration, TooltipModel} from "chart.js";
+import {Chart, ChartConfiguration, ScriptableChartContext, TooltipModel} from "chart.js";
 import {ChartDataValue} from "@/lib/charts/chart.model";
 
 const getOrCreateTooltip = (chart:Chart) => {
+    if(!chart || !(chart.canvas) || !(chart.canvas.parentNode)){
+        return
+    }
     let tooltipEl = chart.canvas.parentNode.querySelector('.'+styles.tooltipBox);
 
     if (!tooltipEl) {
@@ -17,12 +20,16 @@ const getOrCreateTooltip = (chart:Chart) => {
         chart.canvas.parentNode.appendChild(tooltipEl);
     }
 
-    return tooltipEl;
+    return tooltipEl as HTMLElement;
 };
 
-export const externalTooltipHandler = (context:ChartConfiguration) => {
+export const externalTooltipHandler = (context:any) => {
     const {chart, tooltip} = context;
     const tooltipEl = getOrCreateTooltip(chart);
+
+    if(!tooltipEl){
+        return;
+    }
 
     if (tooltip.opacity === 0) {
         return;
@@ -32,8 +39,12 @@ export const externalTooltipHandler = (context:ChartConfiguration) => {
         const tooltipData = tooltip.dataPoints[0].raw as ChartDataValue
         const titleLines = tooltip.title || "";
 
-        const tooltipTitle = tooltipEl.querySelector("."+styles.tooltipTitle)
-        const tooltipContent = tooltipEl.querySelector("."+styles.tooltipContent)
+        const tooltipTitle = tooltipEl.querySelector("."+styles.tooltipTitle) as HTMLElement
+        const tooltipContent = tooltipEl.querySelector("."+styles.tooltipContent) as HTMLElement
+
+        if(!tooltipContent || !tooltipTitle){
+            return;
+        }
 
         while (tooltipContent.firstChild) {
             tooltipContent.firstChild.remove();
@@ -53,7 +64,7 @@ export const externalTooltipHandler = (context:ChartConfiguration) => {
         tooltipEl.appendChild(tooltipContent);
 
     }
-    tooltipEl.style.opacity = 1;
+    tooltipEl.style.opacity = "1";
     tooltipEl.style.font = tooltip.options.bodyFont.string;
     tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
 };

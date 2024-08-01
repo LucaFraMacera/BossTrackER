@@ -29,8 +29,8 @@ export const CHART_OPTIONS: ChartOptions<any> = {
             position: "nearest",
             external: externalTooltipHandler,
             callbacks: {
-                title: ([data]) => {
-                    const {raw, chart} = data
+                title: ([data]:any) => {
+                    const {raw} = data
                     if (raw.satellite) {
                         return raw.satellite.name
                     } else {

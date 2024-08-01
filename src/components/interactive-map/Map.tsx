@@ -127,8 +127,9 @@ export function ERMap() {
                     <b>Nightly :</b>
                     <select className={"filterInput"}
                             onChange={(e) => {
-                                if (e.target.value >= 0) {
-                                    setFilters({...filters, night: e.target.value as DixieBoolean})
+                                const value = parseInt(e.target.value)
+                                if (value >= 0) {
+                                    setFilters({...filters, night: value})
                                 } else {
                                     setFilters({...filters, night: undefined})
                                 }
