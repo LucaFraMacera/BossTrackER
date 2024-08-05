@@ -174,7 +174,7 @@ export default function Stats() {
                             })}
                         </select>
                     </div>
-                    <BossChart dataset={chartData2}/>
+                    <BossChart dataset={chartData2} chartType={"line"}/>
                 </Accordion>
             </Suspense>
         </div>
