@@ -76,7 +76,7 @@ export function ERMap() {
 
     return <>
         <TileLayer
-            url={`/maps/${displayedMap}/{z}/{x}/{y}.png`}
+            url={`/maps/${displayedMap.toLowerCase()}/{z}/{x}/{y}.png`}
         />
         <ZoomControl position={"topleft"}/>
         {bossList &&
