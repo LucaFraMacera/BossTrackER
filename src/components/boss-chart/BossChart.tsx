@@ -1,6 +1,6 @@
 'use client'
 import {CHART_OPTIONS, ChartTypeEnum} from "@/lib/charts/chart";
-import {Chart, Line} from "react-chartjs-2";
+import {Bar, Chart, Doughnut, Line, Pie} from "react-chartjs-2";
 import {
     ArcElement,
     BarElement,
@@ -16,9 +16,10 @@ import {
     Title,
     Tooltip,
 } from 'chart.js';
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import styles from "@/components/boss-chart/boss-chart.module.css"
 import mapStyles from "@/components/interactive-map/map.module.css"
+import {Boss} from "@/lib/database/db.model";
 
 interface BossChartProps {
     dataset: ChartDataset<any>
@@ -43,7 +44,6 @@ export function BossChart({dataset, chartType}: BossChartProps) {
 
     const [selectedType, setSelectedType] = useState<ChartType>(chartType || "pie")
 
-
     return <>
         <div className={mapStyles.filterBox}>
             <b>Chart type:</b>
@@ -57,23 +57,32 @@ export function BossChart({dataset, chartType}: BossChartProps) {
                 })}
             </select>
         </div>
-        <Line data={dataset}/>
-        {/*
-        <Chart className={styles.bossChart}
-               data={dataset}
-               options={{
-                   ...CHART_OPTIONS,
-                   plugins: {
-                       ...(CHART_OPTIONS.plugins),
-                       legend: {
-                           display: dataset.labels.length <= 20
-                       }
-                   }
-               }}
-               type={selectedType}
-        />
-
-        */}
+        <ChartBox chartType={selectedType} dataset={dataset}/>
     </>
 
+}
+
+
+function ChartBox({chartType, dataset}:BossChartProps){
+    const chartOptions = {
+        ...CHART_OPTIONS,
+        plugins: {
+            ...(CHART_OPTIONS.plugins),
+            legend: {
+                display: dataset.labels.length <= 20
+            }
+        }
+    }
+    switch (chartType){
+        case "pie":
+            return <Pie data={dataset} options={chartOptions}/>
+        case "line":
+            return <Line data={dataset} options={chartOptions}/>
+        case "bar":
+            return <Bar data={dataset} options={chartOptions}/>
+        case "doughnut":
+            return <Doughnut data={dataset} options={chartOptions}/>
+        default:
+            return <div/>
+    }
 }

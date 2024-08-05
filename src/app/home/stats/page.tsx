@@ -140,9 +140,7 @@ export default function Stats() {
             <h1>Charts</h1>
             <Suspense fallback={<Loading/>}>
                 <Accordion title={"Deaths per Region"} isOpen={true}>
-                    {
-                        <BossChart dataset={chartData1} chartType={"line"}/>
-                    }
+                    <BossChart dataset={chartData1} chartType={"bar"}/>
                 </Accordion>
             </Suspense>
             <Suspense fallback={<Loading/>}>
@@ -176,8 +174,7 @@ export default function Stats() {
                             })}
                         </select>
                     </div>
-                    {//<BossChart dataset={chartData2} chartType={"line"}/>
-                    }
+                    <BossChart dataset={chartData2} chartType={"line"}/>
                 </Accordion>
             </Suspense>
         </div>
