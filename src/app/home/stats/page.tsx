@@ -141,7 +141,7 @@ export default function Stats() {
             <Suspense fallback={<Loading/>}>
                 <Accordion title={"Deaths per Region"} isOpen={true}>
                     {
-                        //<BossChart dataset={chartData1} chartType={"line"}/>
+                        <BossChart dataset={chartData1} chartType={"line"}/>
                     }
                 </Accordion>
             </Suspense>

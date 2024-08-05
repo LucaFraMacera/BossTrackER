@@ -1,6 +1,6 @@
 'use client'
 import {CHART_OPTIONS, ChartTypeEnum} from "@/lib/charts/chart";
-import {Chart} from "react-chartjs-2";
+import {Chart, Line} from "react-chartjs-2";
 import {
     ArcElement,
     BarElement,
@@ -57,6 +57,8 @@ export function BossChart({dataset, chartType}: BossChartProps) {
                 })}
             </select>
         </div>
+        <Line data={dataset}/>
+        {/*
         <Chart className={styles.bossChart}
                data={dataset}
                options={{
@@ -70,6 +72,8 @@ export function BossChart({dataset, chartType}: BossChartProps) {
                }}
                type={selectedType}
         />
+
+        */}
     </>
 
 }
