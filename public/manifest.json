@@ -1,0 +1,14 @@
+{
+  "name": "Elden Ring Boss Tracker",
+  "short_name": "Boss TrackER",
+  "description": "An Elden Ring Boss tracker, where you can see the location and drops of all the bosses/invasions present in the game.",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "fullscreen"
+}
