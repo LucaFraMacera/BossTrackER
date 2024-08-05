@@ -63,6 +63,7 @@
 
 
 .mapFilters{
+    padding:0 0.5rem 0.5rem;
     border-radius: 0.5rem;
     background: linear-gradient(
             to bottom,
@@ -159,7 +160,7 @@
     }
 
     .mapFiltersBox{
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
 }

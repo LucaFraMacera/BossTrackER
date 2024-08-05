@@ -135,20 +135,29 @@ export function ERMap() {
                                 }
                             }}
                             defaultValue={undefined}>
-                        <option value={-1}>Indifferent</option>
+                        <option value={-1}>All</option>
                         <option value={DixieBoolean.false}>No</option>
                         <option value={DixieBoolean.true}>Yes</option>
                     </select>
                 </div>
-                <label className={styles.mapFilter}>Killed :
-                    <input type={"checkbox"} onChange={(e) => {
-                        if (e.target.checked) {
-                            setFilters({...filters, killed: DixieBoolean.true})
-                        } else {
-                            setFilters({...filters, killed: DixieBoolean.false})
-                        }
-                    }}/>
-                </label>
+                <div className={styles.filterBox}>
+                    <b>Killed :</b>
+                    <select className={"filterInput"}
+                            onChange={(e) => {
+                                const value = parseInt(e.target.value)
+                                if (value >= 0) {
+                                    setFilters({...filters, killed: value})
+                                } else {
+                                    setFilters({...filters, killed: undefined})
+                                }
+                            }}
+                            defaultValue={undefined}>
+                        <option value={-1}>All</option>
+                        <option value={DixieBoolean.false}>No</option>
+                        <option value={DixieBoolean.true}>Yes</option>
+                    </select>
+                </div>
+
             </div>
         </div>
     </>

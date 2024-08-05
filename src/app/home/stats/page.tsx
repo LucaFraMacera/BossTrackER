@@ -9,7 +9,7 @@ import {Accordion} from "@/components/accordion/Accordion";
 import {useScreenSize} from "@/lib/useScreenSize";
 import {DEFAULT_DATA, getDataSetFromArray} from "@/lib/charts/chart";
 import {BossChart} from "@/components/boss-chart/BossChart";
-import {Loading} from "@/components/Loading";
+import {Loading} from "@/components/loading/Loading";
 import {BossFilters} from "@/lib/database/db.model";
 import {MapLayerEnum, MapLayerType} from "@/lib/types";
 import {Attribute} from "@/components/Attribute";
@@ -204,7 +204,7 @@ export default function Stats() {
                         })}
                     </div>
                     :
-                    <label>There is no history present.</label>
+                    <label>You haven&apos;t completed the game yet</label>
             }
         </div>
     </div>

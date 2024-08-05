@@ -13,6 +13,10 @@
     outline: 0.1rem solid var(--background-primary);
 }
 
+.bossTableNoDataRow{
+    text-align: center;
+}
+
 .bossList{
     display: flex;
     flex-direction: row;
@@ -20,6 +24,7 @@
     justify-content: center;
     overflow-x: auto;
     gap: 0.5rem;
+    scrollbar-width: thin;
 }
 
 .bossTable > thead > tr > th {
@@ -130,7 +135,7 @@
 }
 
 .filterMenu{
-    padding: 1rem 0.5rem;
+    padding: 0.5rem;
     display: flex;
     height: 100%;
     background-color: transparent;
@@ -160,7 +165,6 @@
 .searchBox > input[type="text"]{
     width: 50%;
 }
-
 
 @media only screen and (max-width: 650px){
 

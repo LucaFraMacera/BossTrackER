@@ -150,39 +150,45 @@ export default function BossList() {
                     </tr>
                     </thead>
                     <tbody>
-                    {currentList && currentList.map(boss => {
-                        return <tr key={`boss_${boss.id}`}
-                                   className={boss.done === DixieBoolean.true ? styles.doneRow : ""}>
-                            <td onClick={() => openInfoCard(boss)}>{boss.name}</td>
-                            <td onClick={() => openInfoCard(boss)}>{boss.region}</td>
-                            <td onClick={() => openInfoCard(boss)}>{boss.location}</td>
-                            <td><Counter value={boss.tries}
-                                         onIncrement={() => {
-                                             db.setTries(boss.id, boss.tries + 1)
-                                             getList()
-                                         }}
-                                         onDecrement={() => {
-                                             db.setTries(boss.id, boss.tries - 1)
-                                             getList()
-                                         }}
-                                         disabled={boss.done === 1}
-                                         min={0}/>
-                            </td>
-                            <td>
-                                <input type={"checkbox"}
-                                       defaultChecked={boss.done == 1}
-                                       className={styles.checkBox}
-                                       onChange={(e) => {
-                                           if (e.target.checked) {
-                                               db.setDone(boss.id, DixieBoolean.true)
-                                           } else {
-                                               db.setDone(boss.id, DixieBoolean.false)
-                                           }
-                                           getList()
-                                       }}/>
-                            </td>
+                    {currentList && currentList.length > 0 ?
+                        currentList.map(boss => {
+                            return <tr key={`boss_${boss.id}`}
+                                       className={boss.done === DixieBoolean.true ? styles.doneRow : ""}>
+                                <td onClick={() => openInfoCard(boss)}>{boss.name}</td>
+                                <td onClick={() => openInfoCard(boss)}>{boss.region}</td>
+                                <td onClick={() => openInfoCard(boss)}>{boss.location}</td>
+                                <td><Counter value={boss.tries}
+                                             onIncrement={() => {
+                                                 db.setTries(boss.id, boss.tries + 1)
+                                                 getList()
+                                             }}
+                                             onDecrement={() => {
+                                                 db.setTries(boss.id, boss.tries - 1)
+                                                 getList()
+                                             }}
+                                             disabled={boss.done === 1}
+                                             min={0}/>
+                                </td>
+                                <td>
+                                    <input type={"checkbox"}
+                                           defaultChecked={boss.done == 1}
+                                           className={styles.checkBox}
+                                           onChange={(e) => {
+                                               if (e.target.checked) {
+                                                   db.setDone(boss.id, DixieBoolean.true)
+                                               } else {
+                                                   db.setDone(boss.id, DixieBoolean.false)
+                                               }
+                                               getList()
+                                           }}/>
+                                </td>
+                            </tr>
+                        })
+                        :
+                        <tr>
+                            <td className={styles.bossTableNoDataRow} colSpan={5}>No data present</td>
                         </tr>
-                    })}
+                    }
                     </tbody>
                 </table>
             </div>
