@@ -2,6 +2,7 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import React from "react";
 import {AnimatedLogo} from "@/components/logo/Logo";
+import {useScreenSize} from "@/lib/useScreenSize";
 
 
 export default function LandingPage() {

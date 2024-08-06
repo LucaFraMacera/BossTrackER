@@ -83,6 +83,7 @@
     .statsPageBody{
         overflow-y: scroll;
         padding: 1rem;
+        margin-bottom: 4rem;
     }
 
 }

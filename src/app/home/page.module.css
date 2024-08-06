@@ -145,7 +145,6 @@
         bottom: 0;
         width: 100%;
         align-items: center;
-        padding: 0.5rem;
         justify-content: space-evenly;
         z-index: 999;
     }

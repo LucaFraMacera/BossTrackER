@@ -175,6 +175,8 @@ button{
 }
 
 .leaflet-control-zoom{
+  margin-top: 0.5rem !important;
+  margin-left: 0.5rem !important;
   border-color: var(--text-primary) !important;
 }
 
@@ -286,4 +288,10 @@ a.leaflet-popup-close-button:hover{
     width: 2rem;
   }
 
+}
+
+@media only screen and (max-height: 500px) {
+  .leaflet-control-zoom{
+    margin-top: 0!important;
+  }
 }

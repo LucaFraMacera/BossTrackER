@@ -27,3 +27,12 @@
         transform: rotate(5deg) scale(1.2, 1.2) translateY(-70%) translateX(10%);
     }
 }
+
+@media only screen and (max-height:500px) {
+    .logo-body{
+        width: 9rem;
+    }
+    .logo-head{
+        width: 7rem;
+    }
+}
