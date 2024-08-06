@@ -45,7 +45,7 @@
 
 .app-menu-links > a {
     transition: all 0.2s ease-in-out;
-    border-radius: 1rem;
+    border-radius: 0.2rem;
     color: var(--text-primary);
     text-decoration: none;
     text-align: center;
@@ -61,7 +61,7 @@
 
 .active-link {
     color: var(--text-secondary);
-    box-shadow: inset 0 -1rem 0.5rem -1rem var(--text-primary);
+    border-bottom: 0.1rem solid var(--text-secondary);
 }
 
 .app-menu-links > a:hover {

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import styles from "../app/home/page.module.css"
 import {usePathname} from "next/navigation";
-import {ReactNode} from "react";
+import {ReactNode, useEffect} from "react";
 import {useScreenSize} from "@/lib/useScreenSize";
 import {HomeIcon, ListBulletIcon, MapIcon} from "@heroicons/react/16/solid";
 import Image from "next/image";
