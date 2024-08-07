@@ -5,6 +5,7 @@
 }
 
 .mapBox{
+    background-size: cover;
     display: flex;
     align-items: flex-start;
     justify-content: center;

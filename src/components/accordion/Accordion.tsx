@@ -7,15 +7,18 @@ import {useClickOutside} from "@/lib/useClickOutside";
 interface AccordionProps{
     title:string
     isOpen?:boolean
+    ignoreClickOutside?:boolean
     children?:ReactNode
 }
-export function Accordion({title, isOpen, children}:AccordionProps){
+export function Accordion({title, isOpen, children, ignoreClickOutside=false}:AccordionProps){
 
     const [open, setOpen] = useState(isOpen || false)
     const accordionRef = useRef(null)
 
     useClickOutside(()=>{
-        setOpen(false)
+        if(!ignoreClickOutside){
+            setOpen(false)
+        }
     }, accordionRef)
 
     return <div className={styles.accordion} ref={accordionRef}>

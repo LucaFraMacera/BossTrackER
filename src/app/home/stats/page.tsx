@@ -36,6 +36,10 @@ export default function Stats() {
     const [modalOpen, setModalOpen] = useState<boolean>(false)
     const {isSmall} = useScreenSize()
 
+    useEffect(() => {
+        console.log(isSmall)
+    }, [isSmall]);
+
     function getBossToDeathRatio() {
         const deaths = totalDeaths || 1
         const totalBosses = totalDefeatedBosses || 0
@@ -53,7 +57,6 @@ export default function Stats() {
                 return {
                     label: region,
                     value: value.deaths,
-                    satellite: value.mostTried
                 }
             }) || [],
             labels: filteredRegions.map(([region, value]) => region) || []
@@ -139,12 +142,12 @@ export default function Stats() {
         <div className={styles.statsPageBodyContent}>
             <h1>Charts</h1>
             <Suspense fallback={<Loading/>}>
-                <Accordion title={"Deaths per Region"} isOpen={true}>
-                    <BossChart dataset={chartData1} chartType={"bar"}/>
+                <Accordion title={"Deaths per Region"} isOpen={true} ignoreClickOutside={true}>
+                    <BossChart dataset={chartData1} chartType={isSmall ? "doughnut" : "bar"}/>
                 </Accordion>
             </Suspense>
             <Suspense fallback={<Loading/>}>
-                <Accordion title={"Deaths By Bosses"}>
+                <Accordion title={"Deaths By Bosses"} isOpen={true} ignoreClickOutside={true}>
                     <div className={mapStyles.filterBox}>
                         <b>Map :</b>
                         <select className={"filterInput"}
@@ -174,7 +177,7 @@ export default function Stats() {
                             })}
                         </select>
                     </div>
-                    <BossChart dataset={chartData2} chartType={"line"}/>
+                    <BossChart dataset={chartData2} chartType={isSmall ? "pie" : "line"}/>
                 </Accordion>
             </Suspense>
         </div>
