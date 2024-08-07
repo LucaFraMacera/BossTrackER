@@ -6,6 +6,7 @@
   --text-secondary: rgba(255, 211, 100, 0.95);
   --background-secondary: #181818;
   --background-primary: #333333;
+  --background-secondary-rgb: 24, 24, 24;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
@@ -167,7 +168,7 @@ button{
 }
 
 .leaflet-container{
-  width: 80%;
+  width: 100%;
   height: 100%;
   background-color: transparent !important;
   border: 0.6rem solid transparent;
@@ -279,7 +280,6 @@ a.leaflet-popup-close-button:hover{
 
 @media only screen and (max-width: 650px){
   .leaflet-container{
-    width: 90%;
     height: 90%;
   }
 
