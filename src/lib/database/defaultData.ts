@@ -1129,7 +1129,7 @@ export const DEFAULT_BOSS_LIST: Boss[] = [
     },
     {
         id: id++,
-        name: "Cristallians Trio",
+        name: "Cristallian Trio",
         done: 0,
         region: "Caelid",
         location: "Sellia Hideaway",
@@ -1137,7 +1137,8 @@ export const DEFAULT_BOSS_LIST: Boss[] = [
         tries: 0,
         mapLayer: "OVERWORLD",
         bossType: "OPTIONAL",
-        coordinates: [-38.35, 22.56]
+        coordinates: [-38.35, 22.56],
+        notes: "Behind an illusory wall near the battle mage."
     },
     {
         id: id++,

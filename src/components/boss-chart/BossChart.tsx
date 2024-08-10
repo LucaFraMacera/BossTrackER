@@ -1,6 +1,6 @@
 'use client'
 import {CHART_OPTIONS, ChartTypeEnum} from "@/lib/charts/chart";
-import {Bar, Chart, Doughnut, Line, Pie} from "react-chartjs-2";
+import {Bar, Bubble, Chart, Doughnut, Line, Pie, PolarArea, Radar, Scatter} from "react-chartjs-2";
 import {
     ArcElement,
     BarElement,
@@ -42,7 +42,7 @@ ChartJS.register(
 
 export function BossChart({dataset, chartType}: BossChartProps) {
 
-    const [selectedType, setSelectedType] = useState<ChartType>(chartType || "pie")
+    const [selectedType, setSelectedType] = useState<ChartType>(chartType || "bar")
 
     return <>
         <div className={mapStyles.filterBox}>

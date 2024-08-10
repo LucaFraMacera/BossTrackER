@@ -10,7 +10,8 @@ export interface DataSet {
 }
 
 export enum ChartTypeEnum {
-    BAR = "Bar chart", PIE = "Pie chart", LINE = "Line chart", DOUGHNUT = "Doughnut chart"
+    BAR = "Bar chart", PIE = "Pie chart", LINE = "Line chart",
+    DOUGHNUT = "Doughnut chart"
 }
 
 
@@ -58,9 +59,6 @@ export const CHART_OPTIONS: ChartOptions<any> = {
     }
 };
 
-
-const PRIMARY_COLOR = "rgba(255,229,178,0.81)"
-const SECONDARY_COLOR = "rgba(255,241,14,0.54)"
 
 function getChartDataColors(data: any[]) {
     return data.map(value => `rgb(${getRandomValue(150, 256)}, ${getRandomValue(100, 200)}, ${getRandomValue(50, 179)})`)

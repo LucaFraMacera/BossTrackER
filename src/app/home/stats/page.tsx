@@ -11,7 +11,7 @@ import {DEFAULT_DATA, getDataSetFromArray} from "@/lib/charts/chart";
 import {BossChart} from "@/components/boss-chart/BossChart";
 import {Loading} from "@/components/loading/Loading";
 import {BossFilters} from "@/lib/database/db.model";
-import {MapLayerEnum, MapLayerType} from "@/lib/types";
+import {DixieBoolean, MapLayerEnum, MapLayerType} from "@/lib/types";
 import {Attribute} from "@/components/Attribute";
 import {ProgressBar} from "@/components/progress-bar/ProgressBar";
 import {NgModal} from "@/components/ng-modal/NgModal";
@@ -66,16 +66,17 @@ export default function Stats() {
 
     useEffect(() => {
         db.getBosses(filters1).then((bosses) => {
+            const filteredBosses = bosses.filter(boss=> boss.tries > 0 || boss.done == DixieBoolean.true);
             setChartData2(getDataSetFromArray({
                 title: "Deaths by Bosses",
-                data: bosses.map(boss => {
+                data: filteredBosses.map(boss => {
                     return {
                         label: boss.name,
                         value: boss.tries,
                         satellite: boss
                     }
                 }),
-                labels: bosses.map(boss => boss.name)
+                labels: filteredBosses.map(boss => boss.name)
             }))
         })
         db.getAllRegions(filters1.map).then((regions) => {
