@@ -121,7 +121,9 @@ input[type="checkbox"]{
 .dropdown{
   display: flex;
   gap: 0.5rem;
+  padding:0.5rem;
   flex-direction: column;
+  transition: all 0.2s ease-in-out;
 }
 
 .dropdown > label{
@@ -283,6 +285,9 @@ a.leaflet-popup-close-button:hover{
     height: 90%;
   }
 
+  input[type="checkbox"]{
+    width: 1.3rem;
+  }
 
   .checkBox{
     width: 2rem;
