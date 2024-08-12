@@ -47,77 +47,21 @@ export default function BossList() {
     }, [filters]);
 
 
-    return <div className={styles.bossList} onScroll={(e)=>{
+    return <div className={styles.bossList} onScroll={(e) => {
         const {scrollTop} = e.currentTarget
         setTopButtonDisplayed(scrollTop > 200)
     }}>
         <a id={"topBossTable"}></a>
-        <div className={styles.filterMenu}>
-            <ComplexDropdown title={"Filters"}>
-                <form className={styles.filters}>
-                    <div className={styles.filterInputBox}>
-                        <label htmlFor={"region_filter"}><b>Region:</b></label>
-                        <select name={"region_filter"} className={"filterInput"}
-                                onChange={(e) => setFilters({...filters, region: e.target.value})}
-                                defaultValue={undefined}>
-                            <option value={''}>All</option>
-                            {regionList?.map(region => {
-                                return <option key={`region_${region}`} value={region}>{region}</option>
-                            })}
-                        </select>
-                    </div>
-                    <div className={styles.filterInputBox}>
-                        <label htmlFor={"killed_filter"}><b>Killed</b>:</label>
-                        <select name={"killed_filter"} className={"filterInput"}
-                                onChange={(e) => {
-                                    const value = parseInt(e.target.value)
-                                    console.log(value)
-                                    if (value >= 0) {
-                                        setFilters({...filters, killed: value})
-                                    } else {
-                                        setFilters({...filters, killed: undefined})
-                                    }
-                                }}
-                                defaultValue={DixieBoolean.false}>
-                            <option value={-1}>Indifferent</option>
-                            <option value={DixieBoolean.false}>No</option>
-                            <option value={DixieBoolean.true}>Yes</option>
-                        </select>
-                    </div>
-                    <div className={styles.filterInputBox}>
-                        <label htmlFor={"night_filter"}><b>Nightly</b>:</label>
-                        <select name={"night_filter"} className={"filterInput"}
-                                onChange={(e) => {
-                                    const value = parseInt(e.target.value)
-                                    console.log(value)
-                                    if (value >= 0) {
-                                        setFilters({...filters, night: value})
-                                    } else {
-                                        setFilters({...filters, night: undefined})
-                                    }
-                                }}
-                                defaultValue={undefined}>
-                            <option value={-1}>Indifferent</option>
-                            <option value={DixieBoolean.false}>No</option>
-                            <option value={DixieBoolean.true}>Yes</option>
-                        </select>
-                    </div>
-                    <button onClick={() => {
-                        setFilters({})
-                    }}
-                            className={"filterReset"} type={"reset"}>Reset
-                    </button>
-                </form>
-            </ComplexDropdown>
-        </div>
         <div className={styles.tableAndInfos}>
             <div className={styles.bossTableBox}>
                 <div className={styles.searchBox}>
-                    <MagnifyingGlassIcon className={"icon"}/>
-                    <input name={"search_filter"} className={"filterInput"}
-                           type="text"
-                           placeholder={"Search..."}
-                           onChange={(e) => setFilters({...filters, search: e.target.value})}/>
+                    <div>
+                        <MagnifyingGlassIcon className={"icon"}/>
+                        <input name={"search_filter"} className={"filterInput"}
+                               type="text"
+                               placeholder={"Search..."}
+                               onChange={(e) => setFilters({...filters, search: e.target.value})}/>
+                    </div>
                 </div>
                 <table className={styles.bossTable}>
                     <thead>
@@ -196,15 +140,74 @@ export default function BossList() {
                     }
                     </tbody>
                 </table>
-                <a href={"#topBossTable"}><ArrowUpIcon className={`${styles.toTopButton}`}
-                                                       style={{
-                                                           width: topButtonDisplayed ? "2.2rem" : "0",
-                                                           borderColor: topButtonDisplayed ? "var(--text-primary)": "transparent"
-                }}/></a>
+                <a href={"#topBossTable"}>
+                    <ArrowUpIcon className={`${styles.toTopButton} icon`}
+                                 style={{
+                                     width: topButtonDisplayed ? "2rem" : "0",
+                                 }}/>
+                </a>
             </div>
             <div className={"infoCardBox"}>
                 <InfoCard boss={clickedBoss} open={isCardOpen} setOpen={setCardOpen}/>
             </div>
+        </div>
+        <div className={styles.filterMenu}>
+            <ComplexDropdown title={"Filters"}>
+                <form className={styles.filters}>
+                    <div className={styles.filterInputBox}>
+                        <label htmlFor={"region_filter"}><b>Region:</b></label>
+                        <select id={"region_filter"} className={"filterInput"}
+                                onChange={(e) => setFilters({...filters, region: e.target.value})}
+                                defaultValue={undefined}>
+                            <option value={''}>All</option>
+                            {regionList?.map(region => {
+                                return <option key={`region_${region}`} value={region}>{region}</option>
+                            })}
+                        </select>
+                    </div>
+                    <div className={styles.filterInputBox}>
+                        <label htmlFor={"killed_filter"}><b>Killed</b>:</label>
+                        <select id={"killed_filter"} className={"filterInput"}
+                                onChange={(e) => {
+                                    const value = parseInt(e.target.value)
+                                    console.log(value)
+                                    if (value >= 0) {
+                                        setFilters({...filters, killed: value})
+                                    } else {
+                                        setFilters({...filters, killed: undefined})
+                                    }
+                                }}
+                                defaultValue={DixieBoolean.false}>
+                            <option value={-1}>Indifferent</option>
+                            <option value={DixieBoolean.false}>No</option>
+                            <option value={DixieBoolean.true}>Yes</option>
+                        </select>
+                    </div>
+                    <div className={styles.filterInputBox}>
+                        <label htmlFor={"night_filter"}><b>Nightly</b>:</label>
+                        <select id={"night_filter"} className={"filterInput"}
+                                onChange={(e) => {
+                                    const value = parseInt(e.target.value)
+                                    console.log(value)
+                                    if (value >= 0) {
+                                        setFilters({...filters, night: value})
+                                    } else {
+                                        setFilters({...filters, night: undefined})
+                                    }
+                                }}
+                                defaultValue={undefined}>
+                            <option value={-1}>Indifferent</option>
+                            <option value={DixieBoolean.false}>No</option>
+                            <option value={DixieBoolean.true}>Yes</option>
+                        </select>
+                    </div>
+                    <button onClick={() => {
+                        setFilters({})
+                    }}
+                            className={"filterReset"} type={"reset"}>Reset
+                    </button>
+                </form>
+            </ComplexDropdown>
         </div>
     </div>
 }
