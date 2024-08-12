@@ -25,7 +25,12 @@ export function ComplexDropdown({children, title, isOpen}:ComplexDropdownProps){
         setOpen(false)
     }, dropdownRef)
 
-    return <div className="dropdown" ref={dropdownRef}>
+    return <div className="dropdown"
+                ref={dropdownRef}
+                style={{
+                    boxShadow: open ? "-0.5rem 0.5rem 0.5rem var(--background-primary)"
+                        : "",
+                }}>
         <>
             <label onClick={()=>setOpen(!open)}>
                 {open ? <>{title} <XMarkIcon className={"icon"}/></> : <AdjustmentsHorizontalIcon className={"icon bordered-icon"}/>}

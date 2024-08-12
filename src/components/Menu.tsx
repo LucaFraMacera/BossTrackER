@@ -25,8 +25,12 @@ export function Menu() {
     }
 
     return <nav className={styles["app-menu"]}>
-        <Link className={styles["menu"]} href={"/home"}><Image src={"/logo.png"} alt={"Logo"}
-                                                               className={styles["menu-logo"]} width={100} height={50}/></Link>
+        <Link className={styles["menu"]} href={"/home"}>
+            <Image src={"/logo.png"} alt={"Logo"}
+                   className={styles["menu-logo"]}
+                   width={100} height={50}
+                   priority={true}
+        /></Link>
         <div className={styles["app-menu-links"]}>
             <MenuLink href={"/home"} text={"Home"} icon={<HomeIcon className={"icon"}/>}/>
             <MenuLink href={"/home/list"} text={"List"} icon={<ListBulletIcon className={"icon"}/>}/>

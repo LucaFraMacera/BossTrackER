@@ -24,6 +24,7 @@
     justify-content: center;
     overflow-x: auto;
     gap: 0.5rem;
+    height: 100vh;
     scrollbar-width: thin;
 }
 
@@ -136,14 +137,12 @@
 }
 
 .filterMenu{
-    padding: 0.5rem;
     display: flex;
     height: 100%;
     position: sticky;
-    left: 0;
+    right: 0;
     top:0;
     z-index: 10;
-    background: var(--standard-bg)
 }
 
 
@@ -155,19 +154,52 @@
     flex-direction: row;
     gap:1rem;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     width: 100%;
     font-size: 1.5rem;
     color: var(--text-secondary);
     background-color: var(--background-secondary);
-    outline: 0.2rem solid var(--background-secondary)
 }
 
-.searchBox > input[type="text"]{
-    width: 50%;
+.searchBox > div {
+    position: sticky;
+    left: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap:0.5rem;
+    width: 100%;
+}
+
+.searchBox> div > input[type="text"]{
+    width: 100%;
+}
+
+.toTopButton{
+    z-index: 999;
+    color: var(--text-primary);
+    border-radius: 0.5rem;
+    position: absolute;
+    display: none;
+    bottom:4rem;
+    right: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+}
+
+@media only screen and (max-width: 870px) {
+    .filterMenu{
+        background: var(--standard-bg);
+        box-shadow: 1rem 1rem 1rem var(--background-primary);
+    }
 }
 
 @media only screen and (max-width: 650px){
+
+    .toTopButton{
+        display: flex;
+    }
 
     .bossList{
         justify-content: unset;
@@ -175,12 +207,17 @@
     }
 
     .searchBox{
-        justify-content: center;
-        left: 25vw;
+        box-shadow: 0 -1rem 1rem var(--background-primary);
+        justify-content: flex-start;
     }
 
-    .searchBox > input[type="text"]{
-        width: 100%
+    .searchBox > div{
+        justify-content: flex-start;
+        width: 80vw;
+    }
+
+    .searchBox > div > input[type="text"]{
+        width: 80vw;
     }
 
     .bossTableBox{
