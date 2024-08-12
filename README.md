@@ -2,7 +2,7 @@
     <img src="public/logo.png" alt="App Logo"/>
 </div>
 
-# What is it?
+# What is it
 <p>An Elden Ring Boss tracker, to track the progress of your journey.</p>
 
 See all the bosses that you've killed and the ones that remain.  
