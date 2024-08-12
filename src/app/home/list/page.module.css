@@ -24,6 +24,7 @@
     justify-content: center;
     overflow-x: auto;
     gap: 0.5rem;
+    height: 100vh;
     scrollbar-width: thin;
 }
 
@@ -167,7 +168,26 @@
     width: 50%;
 }
 
+.toTopButton{
+    height: auto;
+    backdrop-filter: blur(5rem);
+    color: var(--text-primary);
+    border: 0.1rem solid var(--text-primary);
+    border-radius: 0.5rem;
+    position: absolute;
+    display: none;
+    bottom:4rem;
+    right: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+}
+
 @media only screen and (max-width: 650px){
+
+    .toTopButton{
+        display: flex;
+    }
 
     .bossList{
         justify-content: unset;

@@ -8,7 +8,7 @@ import {DixieBoolean} from "@/lib/types";
 import {InfoCard} from "@/components/info-card/InfoCard";
 import {ComplexDropdown} from "@/components/dropdown/CustomDropDown";
 import {useLiveQuery} from "dexie-react-hooks";
-import {MagnifyingGlassIcon} from "@heroicons/react/16/solid";
+import {ArrowUpIcon, MagnifyingGlassIcon} from "@heroicons/react/16/solid";
 import {SortButton} from "@/components/sort-button/SortButton";
 
 export default function BossList() {
@@ -18,6 +18,7 @@ export default function BossList() {
     const [clickedBoss, setClickedBoss] = useState<Boss>()
     const [isCardOpen, setCardOpen] = useState<boolean>(false)
     const [filters, setFilters] = useState<BossFilters>({sortBy: ["id", "ASC"], killed:DixieBoolean.false})
+    const [topButtonDisplayed, setTopButtonDisplayed] = useState<boolean>(false);
 
     function getList() {
         db.getBosses(filters).then((bosses) => setCurrentList(bosses))
@@ -46,7 +47,11 @@ export default function BossList() {
     }, [filters]);
 
 
-    return <div className={styles.bossList}>
+    return <div className={styles.bossList} onScroll={(e)=>{
+        const {scrollTop} = e.currentTarget
+        setTopButtonDisplayed(scrollTop > 200)
+    }}>
+        <a id={"topBossTable"}></a>
         <div className={styles.filterMenu}>
             <ComplexDropdown title={"Filters"}>
                 <form className={styles.filters}>
@@ -191,6 +196,11 @@ export default function BossList() {
                     }
                     </tbody>
                 </table>
+                <a href={"#topBossTable"}><ArrowUpIcon className={`${styles.toTopButton}`}
+                                                       style={{
+                                                           width: topButtonDisplayed ? "2.2rem" : "0",
+                                                           borderColor: topButtonDisplayed ? "var(--text-primary)": "transparent"
+                }}/></a>
             </div>
             <div className={"infoCardBox"}>
                 <InfoCard boss={clickedBoss} open={isCardOpen} setOpen={setCardOpen}/>

@@ -283,6 +283,9 @@ a.leaflet-popup-close-button:hover{
     height: 90%;
   }
 
+  input[type="checkbox"]{
+    width: 1.3rem;
+  }
 
   .checkBox{
     width: 2rem;
