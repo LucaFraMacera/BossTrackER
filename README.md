@@ -13,7 +13,7 @@ Once you've completed your run, just like in the game, you can restart all over 
 You can check out the webapp at this <a href="https://bosstracker.pages.dev/">link</a>.  
 If your mobile device supports it, you can download the webapp as a mobile app and use it just like a regular mobile application.
 Here's the steps to download the app from your phone:  
-<div style="display: flex; gap: 0.5rem">
+<div style="display: flex; gap: 2rem">
     <img src="public/screenshots/download1.jpg" alt="App Logo" height="320px"/>
     <img src="public/screenshots/download2.jpg" alt="App Logo"  height="320px"/>
 </div>
