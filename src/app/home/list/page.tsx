@@ -17,7 +17,7 @@ export default function BossList() {
     const [currentList, setCurrentList] = useState<Boss[]>([])
     const [clickedBoss, setClickedBoss] = useState<Boss>()
     const [isCardOpen, setCardOpen] = useState<boolean>(false)
-    const [filters, setFilters] = useState<BossFilters>({sortBy: ["id", "ASC"]})
+    const [filters, setFilters] = useState<BossFilters>({sortBy: ["id", "ASC"], killed:DixieBoolean.false})
 
     function getList() {
         db.getBosses(filters).then((bosses) => setCurrentList(bosses))
@@ -73,7 +73,7 @@ export default function BossList() {
                                         setFilters({...filters, killed: undefined})
                                     }
                                 }}
-                                defaultValue={undefined}>
+                                defaultValue={DixieBoolean.false}>
                             <option value={-1}>Indifferent</option>
                             <option value={DixieBoolean.false}>No</option>
                             <option value={DixieBoolean.true}>Yes</option>
