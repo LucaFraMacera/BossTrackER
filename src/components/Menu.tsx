@@ -32,8 +32,8 @@ export function Menu() {
                    priority={true}
         /></Link>
         <div className={styles["app-menu-links"]}>
-            <MenuLink href={"/home"} text={"Home"} icon={<HomeIcon className={"icon"}/>}/>
             <MenuLink href={"/home/list"} text={"List"} icon={<ListBulletIcon className={"icon"}/>}/>
+            <MenuLink href={"/home"} text={"Home"} icon={<HomeIcon className={"icon"}/>}/>
             <MenuLink href={"/home/map"} text={"Map"} icon={<MapIcon className={"icon"}/>}/>
         </div>
     </nav>
