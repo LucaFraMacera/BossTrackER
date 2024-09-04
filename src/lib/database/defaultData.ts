@@ -1538,7 +1538,7 @@ export const DEFAULT_BOSS_LIST: Boss[] = [
         mapLayer: "OVERWORLD",
         bossType: "INVADER",
         coordinates: [21.60, -54.38],
-        notes: "One of Volcano Manor's assassination request."
+        notes: "One of Volcano Manor's assassination request and part of Patches quest."
     },
     {
         id: id++,
@@ -1864,7 +1864,8 @@ export const DEFAULT_BOSS_LIST: Boss[] = [
         tries: 0,
         mapLayer: "OVERWORLD",
         bossType: "INVADER",
-        coordinates: [21.65, -15.29]
+        coordinates: [21.65, -15.29],
+        notes: "One of Volcano Manor's assassinations requests."
     },
     {
         id: id++,
@@ -2173,7 +2174,7 @@ export const DEFAULT_BOSS_LIST: Boss[] = [
         name: "Death Rite Bird",
         done: 0,
         region: "Mountaintop of the Giants",
-        location: "Southwest of Castle Sol Gate (at night)",
+        location: "Southwest of Castle Sol Gate",
         drops: ["Death Ritual Spear"],
         tries: 0,
         mapLayer: "OVERWORLD",
@@ -2477,6 +2478,19 @@ export const DEFAULT_BOSS_LIST: Boss[] = [
     },
     {
         id: id++,
+        name: "Iron Fist Alexander",
+        done: 0,
+        region: "Crumbling Farum Azula",
+        location: "Plaza after Dragon Temple Lift grace.",
+        drops: ["Alexander's Innards", "Shard of Alexander"],
+        tries: 0,
+        mapLayer: "OVERWORLD",
+        bossType: "INVADER",
+        coordinates: [3.69, 76.75],
+        notes: "Part of Alexander's quest. He will challenge you after you talk to him. The lift to get there can be accessed using 2 Stone Sword keys"
+    },
+    {
+        id: id++,
         name: "Recusant Bernahl",
         done: 0,
         region: "Crumbling Farum Azula",
@@ -2549,6 +2563,19 @@ export const DEFAULT_BOSS_LIST: Boss[] = [
         tries: 0,
         mapLayer: "OVERWORLD",
         bossType: "OPTIONAL",
+        coordinates: [63.25, 16.86]
+    },
+    {
+        id: id++,
+        name: "Millicent",
+        done: 0,
+        region: "Miquella's Haligtree",
+        location: "Rot Sewers before the Base of the Haligtree",
+        drops: ["Millicent's Prosthesis"],
+        notes: "Part of Millicent's quest. Two summon signs will appear after you've killed the Ulcerated Tree Spirit present in the same location. You can either choose to assist Millicent or fight her.",
+        tries: 0,
+        mapLayer: "OVERWORLD",
+        bossType: "INVADER",
         coordinates: [63.44, 16.54]
     },
     {

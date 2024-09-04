@@ -20,11 +20,7 @@ export class AppDatabase extends Dexie {
                 ngData: '++id, level, startDate, endDate, deaths'
             })
             if (this.bosses) {
-                this.bosses.count().then(size => {
-                    if (size === 0) {
-                        this.bosses.bulkAdd(DEFAULT_BOSS_LIST)
-                    }
-                })
+                this.updateBossList();
             }
             if (this.ngData) {
                 this.ngData.count().then((size) => {
@@ -222,6 +218,25 @@ export class AppDatabase extends Dexie {
 
         })
         return Array.from(bossMaps)
+    }
+
+    private updateBossList(){
+        DEFAULT_BOSS_LIST.map(boss=>{
+            try {
+                this.bosses.update(boss.id, {
+                    name:boss.name,
+                    notes:boss.notes,
+                    region: boss.region,
+                    location: boss.location,
+                    bossType : boss.bossType,
+                    mapLayer : boss.mapLayer,
+                    coordinates : boss.coordinates,
+                    drops : boss.drops
+                })
+            }catch (error){
+                this.bosses.add(boss)
+            }
+        })
     }
 
 }
