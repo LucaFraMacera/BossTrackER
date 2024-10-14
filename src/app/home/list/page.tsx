@@ -21,7 +21,10 @@ export default function BossList() {
     const [topButtonDisplayed, setTopButtonDisplayed] = useState<boolean>(false);
 
     function getList() {
-        db.getBosses(filters).then((bosses) => setCurrentList(bosses))
+        db.getBosses(filters).then((bosses) => {
+            console.log(bosses)
+            setCurrentList(bosses)
+        })
     }
 
     function openInfoCard(boss: Boss) {

@@ -3551,7 +3551,7 @@ export const DEFAULT_BOSS_LIST: Boss[] = [
     },
     {
         id: id++,
-        name: "Radahn Consort of Miquella",
+        name: "Radhan Consort of Miquella",
         done: 0,
         region: "Enir Ilim",
         location: "Gate of Divinity",
