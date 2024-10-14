@@ -22,7 +22,6 @@ export default function BossList() {
 
     function getList() {
         db.getBosses(filters).then((bosses) => {
-            console.log(bosses)
             setCurrentList(bosses)
         })
     }

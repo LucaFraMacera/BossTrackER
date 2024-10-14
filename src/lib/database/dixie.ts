@@ -221,7 +221,6 @@ export class AppDatabase extends Dexie {
     }
 
     private updateBossList(){
-        console.log('Updating')
         DEFAULT_BOSS_LIST.map(boss=>{
             this.getBoss(boss.id).then(foundBoss =>{
                 if(foundBoss){
