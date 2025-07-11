@@ -13,7 +13,7 @@ export class AppDatabase extends Dexie {
     constructor() {
         try {
             super('AppDB', {
-                indexedDB:indexedDB
+                indexedDB: indexedDB
             })
             this.version(1).stores({
                 bosses: '++id, name, location, region, mapLayer, done, tries',
@@ -33,9 +33,9 @@ export class AppDatabase extends Dexie {
                     }
                 })
             }
-        }catch (error){
+        } catch (error) {
             super("AppDB", {
-                indexedDB:fakeIndexedDB
+                indexedDB: fakeIndexedDB
             })
         }
     }
@@ -98,7 +98,7 @@ export class AppDatabase extends Dexie {
         if (map) {
             result.push(...await this.bosses.where("mapLayer").equals(map).sortBy("region"))
         } else {
-            result.push(...await this.bosses.orderBy("region").sortBy("region"))
+            result.push(...await this.bosses.orderBy("region").toArray())
         }
         result.map(boss => regionMap.set(boss.region, boss.region))
         return Array.from(regionMap.keys())
@@ -148,7 +148,7 @@ export class AppDatabase extends Dexie {
                 })
             }
         })
-        return Array.from(result.entries())
+        return Array.from(result.entries()).filter(entry => entry[1].deaths > 0)
     }
 
     public getMostTriedBoss() {
@@ -165,10 +165,10 @@ export class AppDatabase extends Dexie {
 
     public getBosses(filters?: BossFilters) {
         if (!filters) {
-            return this.bosses.toArray()
+            return this.bosses.orderBy("id").toArray()
         }
         const [sortBy, direction] = filters.sortBy ? filters.sortBy : ["id", "ASC"]
-        let result = this.bosses.filter((boss) => {
+        let result = this.bosses.orderBy(sortBy).filter((boss) => {
             const name = boss.name.toLowerCase()
             const location = boss.location.toLowerCase()
             const hasNameAndLocation = !filters.search ||
@@ -184,7 +184,7 @@ export class AppDatabase extends Dexie {
         if (direction === "DESC") {
             result = result.reverse()
         }
-        return result.sortBy(sortBy)
+        return result.toArray()
     }
 
     public async getStatsPerMap() {
@@ -220,19 +220,19 @@ export class AppDatabase extends Dexie {
         return Array.from(bossMaps)
     }
 
-    private updateBossList(){
-        DEFAULT_BOSS_LIST.map(boss=>{
-            this.getBoss(boss.id).then(foundBoss =>{
-                if(foundBoss){
+    private updateBossList() {
+        DEFAULT_BOSS_LIST.map(boss => {
+            this.getBoss(boss.id).then(foundBoss => {
+                if (foundBoss) {
                     this.bosses.update(boss.id, {
-                        name:boss.name,
-                        notes:boss.notes,
+                        name: boss.name,
+                        notes: boss.notes,
                         region: boss.region,
                         location: boss.location,
-                        bossType : boss.bossType,
-                        mapLayer : boss.mapLayer,
-                        coordinates : boss.coordinates,
-                        drops : boss.drops
+                        bossType: boss.bossType,
+                        mapLayer: boss.mapLayer,
+                        coordinates: boss.coordinates,
+                        drops: boss.drops
                     })
                 } else {
                     this.bosses.add(boss)

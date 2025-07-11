@@ -66,7 +66,7 @@ export function MapMarker({boss, counterFunction, setKilled}:MapMarkerProps){
                     }}/></div>
                 </div>
                 <div className={style.markerCounterBox}>
-                    <b>Total Tries</b>
+                    <b>Total Deaths</b>
                     <Counter value={boss.tries}
                              onIncrement={() => {
                                  if (counterFunction) {

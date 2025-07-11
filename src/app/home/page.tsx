@@ -19,6 +19,10 @@ export default function Home(){
     const mostDifficultBoss = useLiveQuery(()=>db.getMostTriedBoss())
     const nextBossToKill = useLiveQuery(()=> db.getNextBossToKill())
 
+    useEffect(() => {
+        console.log(regionDeaths)
+    }, [regionDeaths]);
+
 
     return <div className={styles["stat-page"]}>
         <div className={styles.generals}>
@@ -48,20 +52,22 @@ export default function Home(){
         </div>
         <div className={styles["stat-box"]}>
             <h1>Where did you die?</h1>
-            <div className={`${styles["stat-box-info"]} ${styles["stat-box-dropdown"]}`}>
-                {regionDeaths && regionDeaths.length > 0 ?
-                    regionDeaths.map(([region, regionData]) => {
-                        if (regionData.deaths > 0) {
+            {regionDeaths && regionDeaths.length > 0 ?
+                <div className={`${styles["stat-box-info"]} ${styles["stat-box-dropdown"]}`}>
+                    {
+                        regionDeaths.map(([region, regionData]) => {
                             return <Accordion key={region} title={region}>
                                 <Attribute className={styles["stat-attribute"]} title={"Total Deaths"}
                                            text={`${regionData.deaths}`}/>
                                 <Attribute className={styles["stat-attribute"]} title={"Most tried boss"}
                                            text={`${regionData.mostTried?.name}, ${regionData.mostTried?.tries}`}/>
                             </Accordion>
-                        }
-                    }) :
-                    <div>You haven&apos;t tried any boss yet.</div>}
-            </div>
+                        })
+                    }
+                </div>
+                :
+                <div>You haven&apos;t tried any boss yet.</div>
+            }
         </div>
     </div>
 }

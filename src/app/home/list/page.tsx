@@ -17,7 +17,7 @@ export default function BossList() {
     const [currentList, setCurrentList] = useState<Boss[]>([])
     const [clickedBoss, setClickedBoss] = useState<Boss>()
     const [isCardOpen, setCardOpen] = useState<boolean>(false)
-    const [filters, setFilters] = useState<BossFilters>({sortBy: ["id", "ASC"], killed:DixieBoolean.false})
+    const [filters, setFilters] = useState<BossFilters>({sortBy: ["id", "ASC"], killed: DixieBoolean.false})
     const [topButtonDisplayed, setTopButtonDisplayed] = useState<boolean>(false);
 
     function getList() {
@@ -90,7 +90,7 @@ export default function BossList() {
                             changeSortDirection("tries")
                         }}
                                         sortDirection={getSortDirectionFor("tries")}
-                        >Tries
+                        >Deaths
                         </SortButton></th>
                         <th><SortButton onClick={() => {
                             changeSortDirection("done")

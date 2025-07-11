@@ -3561,4 +3561,16 @@ export const DEFAULT_BOSS_LIST: Boss[] = [
         bossType: "REMEMBRANCE",
         coordinates: [-12.50, -51.19]
     },
+    {
+        id: id++,
+        name: "Ulcerated Tree Spirit",
+        done: 0,
+        region: "Leyndell Royal Capital",
+        location: "Spawns in an outpost south of the Minor Erdtree Church",
+        drops: ["Golden Seed"],
+        tries: 0,
+        mapLayer: "OVERWORLD",
+        bossType: "OPTIONAL",
+        coordinates: [20.59, -25.99]
+    },
 ]
