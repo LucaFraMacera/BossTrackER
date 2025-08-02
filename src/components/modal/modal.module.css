@@ -1,0 +1,82 @@
+.modalOverlay{
+    top: 0;
+    left: 0;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    backdrop-filter: blur(1rem);
+    z-index: 999;
+}
+
+.modalCloseIcon {
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    color: var(--text-primary);
+    transition: all 0.2s ease-in-out;
+}
+
+.modalCloseIcon:hover{
+    color: var(--text-secondary);
+}
+
+
+.modalContent{
+    background: var(--standard-bg);
+    border: 0.1rem solid var(--text-primary);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 40%;
+}
+
+.modalBody{
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.modalTitle{
+    color: var(--text-primary);
+    width: 100%;
+    padding: 1rem 0 1rem 1rem;
+}
+
+.modalHeader{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    border-bottom: 1px var(--background-primary) solid;
+}
+
+.modalButtons{
+    border-top: 1px var(--background-primary) solid;
+    display: flex;
+    width: 100%;
+    padding: 1rem;
+    justify-content: space-between;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+    .modalBody{
+        padding: 1rem;
+    }
+
+    .modalContent{
+        max-width: 90%;
+    }
+}
+
+

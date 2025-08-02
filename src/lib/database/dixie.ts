@@ -1,6 +1,6 @@
 'use client'
 import Dexie, {Table} from "dexie";
-import {Boss, BossFilters, NGData, RegionDataItem} from "@/lib/database/db.model";
+import {Boss, BossFilters, DatabaseDump, NGData, RegionDataItem} from "@/lib/database/db.model";
 import {DEFAULT_BOSS_LIST} from "./defaultData"
 import {DixieBoolean, MapLayerType} from "@/lib/types";
 import {xor} from "@/lib/utils";
@@ -220,6 +220,42 @@ export class AppDatabase extends Dexie {
         return Array.from(bossMaps)
     }
 
+    public async loadAllData() : Promise<DatabaseDump> {
+        const ngData = await this.ngData.toArray()
+        const bosses = await this.bosses.toArray()
+        return  {
+            bosses:bosses,
+            ngData:ngData
+        }
+    }
+
+    public uploadData({bosses, ngData}:DatabaseDump) {
+        const updateBosses = async ()=>{
+            if(bosses && bosses.length > 0){
+                if(!this.checkUploadedBossList(bosses)) {
+                    throw "Uploaded data is incorrect or malformed!"
+                }
+                console.log("Clearing db")
+                await this.bosses.clear()
+                bosses.map(boss => {
+                    this.bosses.add(boss)
+                })
+                console.log("Added new data")
+            }
+        }
+        const updateNgData = async ()=>{
+            if(ngData && ngData.length > 0) {
+                await this.ngData.clear()
+                ngData.map(data=>{
+                    this.ngData.add(data)
+                })
+            }
+        }
+
+        return Promise.all([updateBosses(), updateNgData()])
+    }
+
+
     private updateBossList() {
         DEFAULT_BOSS_LIST.map(boss => {
             this.getBoss(boss.id).then(foundBoss => {
@@ -239,6 +275,28 @@ export class AppDatabase extends Dexie {
                 }
             })
         })
+    }
+
+    private checkUploadedBossList(bosses:Boss[]) {
+        if(DEFAULT_BOSS_LIST.length !== bosses.length){
+            return false
+        }
+        for(let i = 0; i<DEFAULT_BOSS_LIST.length; i++){
+            if(!bosses[i].coordinates){
+                return false
+            } else {
+                const [bossX, bossY] = bosses[i].coordinates
+                const [defX, defY] = DEFAULT_BOSS_LIST[i].coordinates
+                if(bossX !== defX || defY !== bossY) {
+                    return false
+                }
+
+            }
+            if(!bosses[i].name.toLowerCase().includes(DEFAULT_BOSS_LIST[i].name.toLowerCase())) {
+                return false
+            }
+        }
+        return true
     }
 
 }

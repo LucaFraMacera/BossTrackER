@@ -149,6 +149,11 @@
         width: 10rem;
     }
 
+    .stat-attribute {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
     .app-menu-links {
         background: linear-gradient(
                 to bottom,

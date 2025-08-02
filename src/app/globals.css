@@ -1,4 +1,5 @@
 :root {
+  --font-size:1.2rem;
   --max-width: 1100px;
   --border-radius: 12px;
   --text-primary: rgba(255, 211, 100, 0.8);
@@ -97,13 +98,21 @@ input[type="checkbox"]{
   cursor: pointer;
 }
 
+
+
+.inline-icon{
+  width: 1.2rem;
+  height: auto;
+  transition: all 0.2s ease-in-out;
+}
+
 .icon{
   width: 2rem;
   height: auto;
   transition: all 0.2s ease-in-out;
 }
 
-.icon:hover{
+.icon:hover, .inline-icon:hover{
   color: var(--text-secondary);
 }
 
@@ -147,13 +156,27 @@ input[type="checkbox"]{
 
 .bossLink{
   all: unset;
+  display: flex;
   font-size: 1rem;
   color: var(--text-secondary);
   border:0.1rem solid var(--text-secondary);
   border-radius: 0.5rem;
   transition: all 0.2s ease-in-out;
   padding:0.5rem;
+  gap:0.2rem;
   width: fit-content;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bossLink:disabled{
+  opacity: 50%;
+  cursor: not-allowed;
+}
+
+.bossLink:disabled:hover{
+  cursor: not-allowed;
+  background-color: inherit;
 }
 
 .bossLink:hover{
@@ -271,7 +294,7 @@ a.leaflet-popup-close-button:hover{
 }
 
 .filterInput::placeholder{
-  color: white;
+  color: rgba(255, 255, 255, 30%);
 }
 
 .filterInput:focus{

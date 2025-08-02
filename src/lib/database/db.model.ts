@@ -39,3 +39,8 @@ export interface RegionDataItem{
     deaths:number
     mostTried:Boss|undefined
 }
+
+export interface DatabaseDump {
+    bosses:Boss[]
+    ngData:NGData[]
+}

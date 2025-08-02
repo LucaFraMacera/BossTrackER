@@ -63,6 +63,10 @@
     align-items: flex-start;
 }
 
+.modalButton{
+    color: var(--text-secondary);
+}
+
 @media only screen and (max-width: 1200px){
     .statsPageBodyContent{
         width: 100%;
@@ -84,6 +88,21 @@
         overflow-y: scroll;
         padding: 1rem;
         margin-bottom: 4rem;
+    }
+
+
+    .modalButton{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 0;
+        width: 90%;
+    }
+
+    .modalButton > svg {
+        width: 2rem;
+        height: auto;
     }
 
 }

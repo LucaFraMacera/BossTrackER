@@ -18,3 +18,12 @@ export function arrayToString(arr:any[], separator?:string):string{
         return previousValue+trueSeparator+currentValue
     })
 }
+
+export function extractFileExtension(filename:string) {
+    const regex = /.*\.([a-zA-Z]+)$/
+    const matchedGroups = filename.match(regex)
+    if(matchedGroups){
+        return matchedGroups[1]
+    }
+    return null
+}
