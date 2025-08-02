@@ -1,0 +1,60 @@
+
+.selector{
+    all: unset;
+    text-align: center;
+    font-size: 0;
+}
+
+.resetButton{
+    all: unset;
+}
+
+.selector::file-selector-button{
+    all: unset;
+    content: unset;
+    font-size: 0;
+}
+
+
+
+.fileSelectorContainer{
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border: 0.1rem var(--text-primary) dashed;
+    border-radius: 0.2rem;
+    padding: 0.5rem;
+    text-align: center;
+    transition: all 0.1s ease-in-out;
+}
+
+.fileSelectorContainer > * {
+    cursor: pointer;
+}
+
+.fileSelectorIcon{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+}
+
+.fileIcon{
+    width: 2.5rem;
+    height: auto;
+    color: var(--text-primary);
+}
+
+.selectedFileLabel{
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.fileSelectorContainer:hover{
+    background: var(--background-primary);
+}
+

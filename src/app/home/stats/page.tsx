@@ -15,6 +15,11 @@ import {DixieBoolean, MapLayerEnum, MapLayerType} from "@/lib/types";
 import {Attribute} from "@/components/Attribute";
 import {ProgressBar} from "@/components/progress-bar/ProgressBar";
 import {NgModal} from "@/components/ng-modal/NgModal";
+import DownloadModal from "@/components/modal/download-modal";
+import {ArrowDownIcon, ArrowPathIcon, DocumentArrowDownIcon, DocumentArrowUpIcon} from "@heroicons/react/24/outline";
+import UploadModal from "@/components/modal/upload-modal";
+import {ResetModal} from "@/components/modal/reset-modal";
+import {Modal} from "@/components/modal/modal";
 
 
 export default function Stats() {
@@ -34,11 +39,10 @@ export default function Stats() {
     const ngHistory = useLiveQuery(() => db.getNgHistory())
     const canProgressNG = useLiveQuery(()=>db.canProgressNgLevel())
     const [modalOpen, setModalOpen] = useState<boolean>(false)
+    const [downloadModalOpen, setDownloadModalOpen] = useState<boolean>(false)
+    const [uploadModalOpen, setUploadModalOpen] = useState<boolean>(false)
+    const [resetModalOpen, setResetModalOpen] = useState<boolean>(false)
     const {isSmall} = useScreenSize()
-
-    useEffect(() => {
-        console.log(isSmall)
-    }, [isSmall]);
 
     function getBossToDeathRatio() {
         const deaths = totalDeaths || 1
@@ -86,13 +90,19 @@ export default function Stats() {
 
 
     return <div className={styles.statsPageBody}>
-        <NgModal isOpen={modalOpen} setOpen={setModalOpen}
-                 title={"Continue your journey"}
-                 text={`Do you want to progress to NG+ ${currentNG ? currentNG?.level + 1 : 1}`}
-                 onConfirm={() => {
-                     db.resetBosses()
-                 }}
-        />
+        <Modal isOpen={modalOpen} setOpen={setModalOpen}
+               title={"Continue your journey"}
+               isConfirmReady={true}
+               onConfirmation={()=>{
+                   db.resetBosses().then(()=>{
+                       setModalOpen(false)
+                   })
+               }}>
+            <p>{`Do you want to progress to NG+ ${currentNG ? currentNG?.level + 1 : 1}`}</p>
+        </Modal>
+        <DownloadModal isOpen={downloadModalOpen} setOpen={setDownloadModalOpen} title={"Save Journey"}/>
+        <UploadModal isOpen={uploadModalOpen} setOpen={setUploadModalOpen} title={"Upload Journey"}/>
+        <ResetModal isOpen={resetModalOpen} setOpen={setResetModalOpen} title={"Reset Journey"}/>
         <div className={styles.statBox}>
             <h1>General Stats</h1>
             <div className={styles.statBoxInfo}>
@@ -107,6 +117,20 @@ export default function Stats() {
                            text={`${currentNG?.level || 0}`}/>
                 <Attribute className={homeStyle["stat-attribute"]} title={"Start date"}
                            text={`${currentNG?.startDate}`}/>
+                <div className={homeStyle["stat-attribute"]}>
+                    <button className={`bossLink ${styles.modalButton}`} onClick={() => setDownloadModalOpen(true)}>
+                        Download
+                        <DocumentArrowDownIcon className={"inline-icon"}/>
+                    </button>
+                    <button className={`bossLink ${styles.modalButton}`} onClick={() => setUploadModalOpen(true)}>
+                        Upload
+                        <DocumentArrowUpIcon className={"inline-icon"}/>
+                    </button>
+                    <button className={`bossLink ${styles.modalButton}`} onClick={() => setResetModalOpen(true)}>
+                        Reset
+                        <ArrowPathIcon className={"inline-icon"}/>
+                    </button>
+                </div>
             </div>
         </div>
         <div className={styles.statBox}>
